@@ -1,0 +1,58 @@
+.select_root {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+
+  &_title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-weight: 200;
+    text-align: center;
+    margin: 0px auto 10px auto;
+    display: block;
+  }
+
+  &_up {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &_down {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &_item {
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    background-color: white;
+    border: 1px solid black;
+
+    @media(max-width: 750px) {
+      width: 45px;
+      height: 45px;
+    };
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_name {
+      background-color: transparent;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 50px;
+
+      @media(max-width: 750px) {
+        line-height: 45px;
+      };
+    }
+  }
+}
+
+.active {
+  outline: 1px solid darkred;
+  color: green;
+  background-color: lightgrey;
+}

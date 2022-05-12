@@ -1,0 +1,49 @@
+.progression {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &_title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-weight: 200;
+    text-align: center;
+    margin: 0 auto 10px;
+    display: block;
+
+    @media(max-width: 750px) {
+      margin-bottom: 5px;
+    };
+  }
+
+  &_chords {
+    height: 115px;
+    width: 180px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media(max-width: 750px) {
+      height: 95px;
+    };
+
+    &_title {
+      background-color: white;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    &_diatonic_item {
+      background-color: white;
+      text-align: center;
+    }
+
+    &_basic_item {
+      background-color: white;
+      text-align: center;
+    }
+  }
+}

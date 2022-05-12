@@ -1,0 +1,17 @@
+@mixin fontface($font_path, $font_name, $font_weight:400, $font_style:normal) {
+  @font-face {
+    font-family: $font_name;
+    font-style: $font_style;
+    font-weight: $font_weight;
+  }
+}
+
+
+@include fontface('Nunito','Nunito', 100);
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../fonts/Nunito/Nunito-ExtraLight.ttf');
+  font-weight: normal;
+  font-style: normal;
+}

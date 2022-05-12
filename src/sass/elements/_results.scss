@@ -1,0 +1,26 @@
+.result {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px auto 0;
+
+  &_title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-weight: 200;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    display: block;
+  }
+
+  &_output {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-weight: 200;
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 0 auto 10px auto;
+    padding-left: 4px;
+    display: block;
+  }
+}
