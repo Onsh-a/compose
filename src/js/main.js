@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		instrument: 'guitar',
 	}
 
-	let root = 'C';
 	let scale = [];
 
 	const controls = document.querySelectorAll('.select_root_item_name, .select_scale_item_name, .select_instrument_item_name')
@@ -50,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		document.querySelector('.select_root_item_name.active').dispatchEvent(new Event("click"));
 	}, 1000)
 
-	function toggleActive(elem) {
+	const toggleActive = (elem) => {
 		const setting = elem.dataset.type;
 		settings[setting] = setting === 'root' ? elem.innerText : elem.innerText.toLowerCase();
 		const wrapper = elem.closest('.select-wrapper');
@@ -93,7 +92,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const canvas = document.querySelector('.canvas');
 	const ctx = canvas.getContext('2d');
-	let pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true] // true - нижняя, false - верхняя
+	ctx.scale(6, 6);
+	const pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true] // true - нижняя, false - верхняя
 
 	let guitarStrings = [
 		['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'], // first
@@ -104,10 +104,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#']
 	]
 
-	let notesOnString = []; // array with current notes on the fretboard (active in scale)
-	let isToRender = []; // array with pattern to render these notes
-
-	ctx.scale(6, 6)
+	const notesOnString = []; // array with current notes on the fretboard (active in scale)
+	const isToRender = []; // array with pattern to render these notes
 
 	const rightKeys = (scale) => {
 		return notes.map((item) => scale.includes(item));
@@ -151,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	};
 
-	function canvasGuitarSetup() {
+	const canvasGuitarSetup = () => {
 		ctx.globalCompositeOperation = "source-over";
 		ctx.lineWidth = '0.4'
 		const x_coord = 8
@@ -204,8 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			for (let j = 0; j < 15; j++) {
 				if (isToRender[i][j] !== true) {
-					// if note is absent
-					x_coord += 8;
+					x_coord += 8; // if note is absent
 				} else {
 					ctx.beginPath();
 					ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
