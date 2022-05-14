@@ -120,64 +120,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const render = (activeKeys, keysPattern, instrument) => {
 		if (instrument === 'piano') {
-			let coord = 42;
+			let x_coord = 40;
 			let y_coord = 3;
 
-			for (let i = 0; i < activeKeys.length; i++) {
-				coord += 10;
-				ctx.lineWidth = '0.4'
-
-				if (keysPattern[i] == true) {
+			keysPattern.forEach((key, index) => {
+				const active = activeKeys[index];
+				ctx.lineWidth = 0.2;
+				ctx.strokeStyle = 'black';
+				if (key) {
+					ctx.fillStyle = active ? 'lightgrey' : 'white';
 					ctx.globalCompositeOperation = "destination-over";
-
-					if (activeKeys[i] == true && i !== 4) {
-						ctx.fillStyle = 'lightgrey';
-						ctx.strokeStyle = 'black';
-						ctx.fillRect(coord, y_coord, 8, 50);
-						ctx.strokeRect(coord, y_coord, 8, 50);
-					} else if (activeKeys[i] == false && i !== 4) {
-						ctx.fillStyle = 'white';
-						ctx.strokeStyle = 'black';
-						ctx.fillRect(coord, y_coord, 8, 50);
-						ctx.strokeRect(coord, y_coord, 8, 50);
-					} else if (activeKeys[i] == true && i == 4) {
-						coord -= 1;
-						ctx.fillStyle = 'lightgrey';
-						ctx.strokeStyle = 'black';
-						ctx.fillRect(coord, y_coord, 8, 50);
-						ctx.strokeRect(coord, y_coord, 8, 50);
-						coord -= 2;
-					} else if (activeKeys[i] == false && i == 4) {
-						coord -= 1;
-						ctx.fillStyle = 'white';
-						ctx.strokeStyle = 'black';
-						ctx.fillRect(coord, y_coord, 8, 50);
-						ctx.strokeRect(coord, y_coord, 8, 50);
-						coord -= 2;
-					}
-
+					ctx.fillRect(x_coord, y_coord, 8, 40);
+					ctx.strokeRect(x_coord, y_coord, 8, 40);
 				} else {
+					ctx.fillStyle = active ? 'darkred' : 'black';
 					ctx.globalCompositeOperation = "source-over";
-
-					if (activeKeys[i] == true && i !== 4) {
-						coord -= 6;
-						ctx.fillStyle = 'darkred';
-						ctx.strokeStyle = 'black';
-						ctx.fillRect(coord, y_coord, 6, 35);
-						ctx.strokeRect(coord, y_coord, 6, 35);
-						coord -= 6;
-					} else {
-						coord -= 6;
-						ctx.strokeStyle = 'black';
-						ctx.fillStyle = 'black'
-						ctx.strokeRect(coord, y_coord, 6, 35);
-						ctx.fillRect(coord, y_coord, 6, 35);
-						coord -= 6
-					}
+					ctx.fillRect(x_coord, y_coord, 6, 30);
+					ctx.strokeRect(x_coord, y_coord, 6, 30);
 				}
 
-			}
-
+				if (key === true && keysPattern[index + 1] === false) x_coord += 5;
+				if (key === true && keysPattern[index + 1] === true) x_coord += 5;
+				if (key === false && keysPattern[index + 1] !== false) x_coord += 2.5;
+				if (index === 4) x_coord += 2.5;
+			})
 		} else if (instrument === 'guitar') {
 			canvasGuitarSetup();
 			getNotesOnFretBoard();
@@ -225,47 +191,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const getNotesOnFretBoard = () => {
 		for (let i = 0; i < 6; i++) {
-			notesOnString[i] = guitarStrings[i].map((item) => {
-				if (scale.includes(item)) return item
-			});
-
+			notesOnString[i] = guitarStrings[i].filter((item) => scale.includes(item));
 			isToRender[i] = guitarStrings[i].map((item) => notesOnString[i].includes(item));
 		}
 	}
 
-	function renderGuitarNotes() {
-		let x_coord = 8
+	const renderGuitarNotes = () => {
 		let y_coord = -0.5
 		for (let i = 0; i < 6; i++) {
-			x_coord = -4;
+			let x_coord = -4;
 			y_coord += 6;
 
 			for (let j = 0; j < 15; j++) {
-				if (isToRender[i][j] == true && guitarStrings[i][j] != root) {
-					ctx.beginPath();
-					ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-					ctx.fillStyle = '#26CC26'
-					ctx.fill()
-					ctx.beginPath();
-					ctx.font = '3px Nunito, sans-serif';
-					ctx.fillStyle = 'black'
-					ctx.fillText(guitarStrings[i][j], x_coord + 8 - 1, y_coord + 1);
-
+				if (isToRender[i][j] !== true) {
+					// if note is absent
 					x_coord += 8;
-
-				} else if (isToRender[i][j] == true && guitarStrings[i][j] == root) {
-					ctx.beginPath();
-					ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-					ctx.fillStyle = 'gold'
-					ctx.fill()
-					ctx.beginPath();
-					ctx.font = '3px Nunito, sans-serif';
-					ctx.fillStyle = 'black'
-					ctx.fillText(guitarStrings[i][j], x_coord + 8 - 1, y_coord + 1);
-
-					x_coord += 8;
-
 				} else {
+					ctx.beginPath();
+					ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
+					ctx.fillStyle = guitarStrings[i][j] !== settings.root ? '#26CC26' : 'gold'
+					ctx.fill()
+					ctx.beginPath();
+					ctx.font = '3px Nunito, sans-serif';
+					ctx.fillStyle = 'black'
+					ctx.fillText(guitarStrings[i][j], x_coord + 8 - 1, y_coord + 1);
 					x_coord += 8;
 				}
 			}

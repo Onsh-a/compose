@@ -4,7 +4,8 @@
   "description": "app to compose",
   "main": "index.js",
   "scripts": {
-    "watch": "parcel index.html --open --port 3000"
+    "watch": "parcel serve index.html --open --port 3000",
+    "build": "parcel index.html --open --port 3000"
   },
   "author": "Onsha",
   "license": "ISC",
