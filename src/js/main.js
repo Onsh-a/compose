@@ -1,4 +1,5 @@
 import romanize from './helpers/romanizeNumbers.js';
+import calcChord from "./helpers/makeChords";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			scale = buildScale(settings.root, notes, settings.getPattern());
 			scaleField.innerHTML = scale;
 			decideOnDiatonic(scale, settings.scale);
+      setChordApplicatures();
 			canvasSetup(scale);
 		})
 	});
@@ -77,16 +79,37 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 
 		if (diatonicPattern === 'major') {
-			basicChordsText = basicChords.map((item, index) => `${item.step}: ${item.chord}${index === 3 ? 'dim' : 'm'}<br>`)
-			diatonicChordsText = diatonicChords.map((item, index) => `${item.step}: ${item.chord} <br>`);
+			basicChordsText = basicChords.map((item, index) => `
+        <span>${item.step}:</span>
+        <span class="chord">${item.chord}${index === 3 ? 'dim' : 'm'}</span><br>`)
+			diatonicChordsText = diatonicChords.map((item, index) => `
+        <span>${item.step}:</span> 
+        <span class="chord">${item.chord}</span><br>`);
 		} else {
-			basicChordsText = basicChords.map((item, index) => `${item.step}: ${item.chord}${index === 0 ? 'dim' : 'm'}<br>`)
-			diatonicChordsText = diatonicChords.map((item, index) => `${item.step}: ${item.chord}${index === 0 ? 'm' : ''}<br>`)
+			basicChordsText = basicChords.map((item, index) => `
+        <span>${item.step}:</span> 
+        <span class="chord">${item.chord}${index === 0 ? 'dim' : 'm'}</span><br>`)
+			diatonicChordsText = diatonicChords.map((item, index) => `
+        <span>${item.step}:</span> 
+        <span class="chord">${item.chord}${index === 0 ? 'm' : ''}</span><br>`)
 		}
 
 		diatonicChordField.innerHTML = diatonicChordsText.join('');
 		basicChordField.innerHTML = basicChordsText.join('');
 	}
+
+	const setChordApplicatures = () => {
+	  const chords = document.querySelectorAll('.chord')
+    console.log(chords)
+    const chordField = document.querySelector('.chord-apps');
+    chords.forEach((item) => {
+      console.log(item)
+      item.addEventListener('click', (e) => {
+        chordField.innerHTML = `${e.target.innerText} = ${calcChord(e.target.innerText)}`;
+        renderChordShape();
+      })
+    })
+  }
 
 	// ======================= canvas settings ========================
 
@@ -95,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	ctx.scale(6, 6);
 	const pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true] // true - нижняя, false - верхняя
 
-	let guitarStrings = [
+	const guitarStrings = [
 		['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'], // first
 		['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
 		['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
@@ -137,8 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					ctx.strokeRect(x_coord, y_coord, 6, 30);
 				}
 
-				if (key === true && keysPattern[index + 1] === false) x_coord += 5;
-				if (key === true && keysPattern[index + 1] === true) x_coord += 5;
+				if (key === true) x_coord += 5;
 				if (key === false && keysPattern[index + 1] !== false) x_coord += 2.5;
 				if (index === 4) x_coord += 2.5;
 			})
@@ -217,4 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 	}
+
+	// chords canvas
+  // TODO create chord shape drawing canvas
 });
