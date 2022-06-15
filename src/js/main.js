@@ -100,13 +100,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const setChordApplicatures = () => {
 	  const chords = document.querySelectorAll('.chord')
-    console.log(chords)
     const chordField = document.querySelector('.chord-apps');
     chords.forEach((item) => {
-      console.log(item)
       item.addEventListener('click', (e) => {
         chordField.innerHTML = `${e.target.innerText} = ${calcChord(e.target.innerText)}`;
-        renderChordShape();
+        // renderChordShape();
       })
     })
   }
