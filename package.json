@@ -7,7 +7,7 @@
     "build": "parcel build index.html",
     "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist"
   },
-  "homepage": "https://onsh-a.github.io/compose/",
+  "homepage": "https://onsh-a.github.io/compose",
   "author": "Onsha",
   "license": "ISC",
   "devDependencies": {
