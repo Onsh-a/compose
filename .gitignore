@@ -1,5 +1,6 @@
 .DS_Store
 .cache
 .idea
+.parcel-cache
 dist
 node_modules

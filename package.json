@@ -2,17 +2,20 @@
   "name": "compose",
   "version": "1.0.0",
   "description": "app to compose",
-  "main": "index.js",
   "scripts": {
     "watch": "parcel serve index.html --open --port 3000",
-    "build": "parcel index.html --port 3000"
+    "build": "parcel build index.html",
+    "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist"
   },
+  "homepage": "https://onsh-a.github.io/compose/",
   "author": "Onsha",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.1",
     "sass": "^1.51.0"
   },
   "dependencies": {
+    "gh-pages": "^4.0.0",
     "helpers": "^0.0.6",
     "parcel": "^2.6.1",
     "src": "^1.0.0"
