@@ -1,62 +1,52 @@
-.select_root {
+.select-root {
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  max-width: 520px;
+  width: 100%;
 
-  &_title {
+  &__title {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
-    font-weight: 200;
     text-align: center;
-    margin: 0px auto 10px auto;
+    margin: 0 auto 10px auto;
     display: block;
+    color: #2f3640;
   }
 
-  &_up {
+  &__up,
+  &__down {
     display: flex;
     flex-direction: row;
   }
 
-  &_down {
-    display: flex;
-    flex-direction: row;
-  }
-
-  &_item {
-    width: 50px;
-    height: 50px;
+  &__item {
+    flex: 1;
+    height: 40px;
     margin: 3px;
-    background-color: white;
-    border: 1px solid black;
+    background-color: #2f3640;
+    border: 2px solid #2f3640;
+    border-radius: 8px;
+    color: #FFFFFF;
     display: flex;
+    justify-content: center;
     align-items: center;
 
-    @media(max-width: 750px) {
-      width: 45px;
-      height: 45px;
-    };
+    &:first-child {
+      margin: 3px 3px 3px 0;
+    }
+
+    &:last-child {
+      margin: 3px 0 3px 3px;
+    }
+
+    &.active {
+      border: 2px solid #2f3640;
+      background-color: #FFFFFF;
+      color: #2f3640;
+    }
 
     &:hover {
       cursor: pointer;
     }
-
-    &_name {
-      background-color: transparent;
-      margin: 0 auto;
-      text-align: center;
-      line-height: 48px;
-      width: 100%;
-
-
-      @media(max-width: 750px) {
-        line-height: 45px;
-      };
-    }
   }
-}
-
-.active {
-  outline: 1px solid darkred;
-  color: green;
-  background-color: lightgrey;
 }

@@ -10,86 +10,73 @@
 </head>
 
 <body>
-<header class="container">
-  <span class="title">Welcome to Compose.io</span>
+<header>
+  <div class="container">
+    <h1 class="title">compose.io</h1>
+  </div>
 </header>
 <section class="container_row">
-  <div class="select_root select-wrapper">
-    <span class="select_root_title">Choose the root note</span>
-    <div class="select_root_up">
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name active">C</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">C#</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">D</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">D#</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">E</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">F</div>
-      </div>
+  <div class="select-root select-wrapper">
+    <span class="select-root__title">Choose the root note</span>
+    <div class="select-root__up">
+      <div class="select-root__item">C</div>
+      <div class="select-root__item">C#</div>
+      <div class="select-root__item">D</div>
+      <div class="select-root__item">D</div>
+      <div class="select-root__item">E</div>
+      <div class="select-root__item">F</div>
     </div>
-    <div class="select_root_down">
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">F#</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">G</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">G#</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">A</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">A#</div>
-      </div>
-      <div class="select_root_item">
-        <div data-type='root' class="select_root_item_name">B</div>
-      </div>
+    <div class="select-root__down">
+      <div class="select-root__item">F#</div>
+      <div class="select-root__item">G</div>
+      <div class="select-root__item">G#</div>
+      <div class="select-root__item">A</div>
+      <div class="select-root__item">A#</div>
+      <div class="select-root__item">B</div>
     </div>
   </div>
-  <div class="wrapper">
-    <div class="select_scale">
-      <div class="select_scale_up">
-        <span class="select_scale_title">Select scale</span>
+</section>
+<section class="container">
+  <div class="settings">
+    <div class="select-box" data-type="scale">
+      <div class="select-box__options">
+        <div class="select-box__option">
+          <input type="radio" class="radio" id="major" name="category" />
+          <label for="major">Major</label>
+        </div>
+
+        <div class="select-box__option">
+          <input type="radio" class="radio" id="minor" name="category" />
+          <label for="minor">Minor</label>
+        </div>
       </div>
-      <div class="select_scale_down select-wrapper">
-        <div class="select_scale_item">
-          <div data-type="scale" class="select_scale_item_name active">Major</div>
-        </div>
-        <div class="select_scale_item">
-          <div data-type="scale" class="select_scale_item_name">Minor</div>
-        </div>
+      <div class="selected">
+        Choose scale
       </div>
     </div>
-    <div class="select_instrument select-wrapper">
-      <div class="select_instrument_up">
-        <span class="select_instrument_title">Select instrument</span>
+
+    <div class="select-box" data-type="instrument">
+      <div class="select-box__options">
+        <div class="select-box__option">
+          <input type="radio" class="radio" id="guitar" name="category" />
+          <label for="guitar">Guitar</label>
+        </div>
+
+        <div class="select-box__option">
+          <input type="radio" class="radio" id="piano" name="category" />
+          <label for="piano">Piano</label>
+        </div>
       </div>
-      <div class="select_instrument_down">
-        <div class="select_instrument_item">
-          <div data-type="instrument" class="select_instrument_item_name active">Guitar</div>
-        </div>
-        <div class="select_instrument_item">
-          <div data-type="instrument" class="select_instrument_item_name">Piano</div>
-        </div>
+      <div class="selected">
+        Choose instrument
       </div>
     </div>
   </div>
 </section>
 <section class="container">
-  <div class="result">
-    <span class="result_title">Scale: </span>
-    <div class="result_output">CDEFGABC</div>
+  <div class="scale">
+    <span class="scale__title">Scale: </span>
+    <div class="scale__output">CDEFGABC</div>
   </div>
 </section>
 <section class="container">
