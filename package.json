@@ -11,7 +11,7 @@
   "scripts": {
     "watch": "parcel serve index.html --open --port 3000",
     "build": "parcel build index.html",
-    "prepare_deploy": "rm -rf dist/ && npm run build",
+    "prepare_deploy": "rm -rf dist/ && rm -rf node_modules/.cache/gh-pages && npm run build",
     "deploy": "npm run prepare_deploy && gh-pages -d dist"
   },
   "homepage": "https://onsh-a.github.io/compose",
