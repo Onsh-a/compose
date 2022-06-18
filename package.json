@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "parcel serve index.html --open --port 3000",
-    "build": "parcel index.html --open --port 3000"
+    "build": "parcel index.html --port 3000"
   },
   "author": "Onsha",
   "license": "ISC",
