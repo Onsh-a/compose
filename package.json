@@ -2,10 +2,17 @@
   "name": "compose",
   "version": "1.0.0",
   "description": "app to compose",
+  "targets": {
+    "web": {
+      "context": "browser",
+      "publicUrl": "./"
+    }
+  },
   "scripts": {
     "watch": "parcel serve index.html --open --port 3000",
     "build": "parcel build index.html",
-    "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist"
+    "prepare_deploy": "rm -rf dist/ && npm run build",
+    "deploy": "npm run prepare_deploy && gh-pages -d dist"
   },
   "homepage": "https://onsh-a.github.io/compose",
   "author": "Onsha",
