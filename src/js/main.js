@@ -1,7 +1,9 @@
 import romanize from './helpers/romanizeNumbers.js';
 import calcChord from "./helpers/makeChords";
+import initSelect from "./helpers/customSelect";
 
 document.addEventListener("DOMContentLoaded", function() {
+  initSelect();
 
 	const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -30,33 +32,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	let scale = [];
 
-	const controls = document.querySelectorAll('.select_root_item_name, .select_scale_item_name, .select_instrument_item_name')
-	const scaleField = document.querySelector('.result_output');
+	const rootNotes = document.querySelector('.select-root')
+	const scaleField = document.querySelector('.scale__output');
 	const diatonicChordField = document.querySelector('.progression_chords_diatonic_item');
 	const basicChordField = document.querySelector('.progression_chords_basic_item');
 
+  document.addEventListener('changeSettings', (e) => {
+    settings[e.detail.eventType] = e.detail.value;
+    main();
+  });
 
-	controls.forEach((item, i) => { // main function from rootnote
-		item.addEventListener('click', (e) => {
-			toggleActive(item);
-			scale = buildScale(settings.root, notes, settings.getPattern());
-			scaleField.innerHTML = scale;
-			decideOnDiatonic(scale, settings.scale);
-      setChordApplicatures();
-			canvasSetup(scale);
-		})
-	});
+  rootNotes.addEventListener('click', (e) => {
+    const current = e.target;
+    if (current.classList.contains('select-root__item')) {
+      toggleActive(current);
+      const eventDetail = {
+        eventType: 'root',
+        value: current.innerText,
+      }
+      document.dispatchEvent(new CustomEvent('changeSettings', { detail: eventDetail }));
+    }
+  })
 
-	setTimeout(() => {
-		document.querySelector('.select_root_item_name.active').dispatchEvent(new Event("click"));
-	}, 1000)
+	const main = () => {
+    scale = buildScale(settings.root, notes, settings.getPattern());
+    scaleField.innerHTML = scale;
+    decideOnDiatonic(scale, settings.scale);
+    setChordApplicatures();
+    canvasSetup(scale);
+  };
 
 	const toggleActive = (elem) => {
-		const setting = elem.dataset.type;
-		settings[setting] = setting === 'root' ? elem.innerText : elem.innerText.toLowerCase();
-		const wrapper = elem.closest('.select-wrapper');
-		const previous = wrapper.querySelector('.active');
-		previous.classList.remove('active')
+    settings.root = elem.innerText;
+    const previous = document.querySelector('.select-root').querySelector('.active');
+    if (previous) previous.classList.remove('active')
 		elem.classList.add('active');
 	}
 
