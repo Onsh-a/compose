@@ -16,5 +16,5 @@ body {
   align-items: center;
   border: 1px solid black;
   width: 660px;
-  max-width: 100%;
+  max-width: calc(100% - 30px);
 }
