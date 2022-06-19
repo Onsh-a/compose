@@ -15,14 +15,14 @@
     <h1 class="title">compose.io</h1>
   </div>
 </header>
-<section class="container_row">
+<section class="container">
   <div class="select-root select-wrapper">
     <span class="select-root__title">Choose the root note</span>
     <div class="select-root__up">
       <div class="select-root__item">C</div>
       <div class="select-root__item">C#</div>
       <div class="select-root__item">D</div>
-      <div class="select-root__item">D</div>
+      <div class="select-root__item">D#</div>
       <div class="select-root__item">E</div>
       <div class="select-root__item">F</div>
     </div>
@@ -41,12 +41,12 @@
     <div class="select-box" data-type="scale">
       <div class="select-box__options">
         <div class="select-box__option">
-          <input type="radio" class="radio" id="major" name="category" />
+          <input type="radio" class="radio" id="major" name="category"/>
           <label for="major">Major</label>
         </div>
 
         <div class="select-box__option">
-          <input type="radio" class="radio" id="minor" name="category" />
+          <input type="radio" class="radio" id="minor" name="category"/>
           <label for="minor">Minor</label>
         </div>
       </div>
@@ -58,12 +58,12 @@
     <div class="select-box" data-type="instrument">
       <div class="select-box__options">
         <div class="select-box__option">
-          <input type="radio" class="radio" id="guitar" name="category" />
+          <input type="radio" class="radio" id="guitar" name="category"/>
           <label for="guitar">Guitar</label>
         </div>
 
         <div class="select-box__option">
-          <input type="radio" class="radio" id="piano" name="category" />
+          <input type="radio" class="radio" id="piano" name="category"/>
           <label for="piano">Piano</label>
         </div>
       </div>
@@ -75,8 +75,30 @@
 </section>
 <section class="container">
   <div class="scale">
-    <span class="scale__title">Scale: </span>
-    <div class="scale__output">CDEFGABC</div>
+    <table class="scale__table">
+      <tbody>
+        <tr class="scale__steps">
+          <td>Step:</td>
+          <td>I</td>
+          <td>II</td>
+          <td>III</td>
+          <td>IV</td>
+          <td>V</td>
+          <td>VI</td>
+          <td>VII</td>
+        </tr>
+        <tr class="scale__notes">
+          <td>Note:</td>
+          <td>C</td>
+          <td>D</td>
+          <td>E</td>
+          <td>F</td>
+          <td>G</td>
+          <td>A</td>
+          <td>B</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 <section class="container">

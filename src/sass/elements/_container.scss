@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  max-width: 660px;
+  max-width: 520px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -9,16 +9,4 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  &_row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: baseline;
-
-    @media(max-width: 750px) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
 }

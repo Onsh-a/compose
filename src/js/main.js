@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const main = () => {
     scale = buildScale(settings.root, notes, settings.getPattern());
-    scaleField.innerHTML = scale;
+    printScaleTable(scale);
     decideOnDiatonic(scale, settings.scale);
     setChordApplicatures();
     canvasSetup(scale);
@@ -74,6 +74,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		const sortedArr = notes.slice(startPoint).concat(notes.slice(0, startPoint));
 		return scalePattern.map(item => sortedArr[item]);
 	}
+
+	const printScaleTable = (scale) => {
+    const tableCells = document.querySelectorAll('.scale__notes td:not(:first-child)');
+    tableCells.forEach((item, index) => item.innerText = scale[index]);
+  }
 
 	const decideOnDiatonic = (scale, diatonicPattern) => {
 		const pattern = diatonicPatterns[diatonicPattern];
