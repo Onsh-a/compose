@@ -1,65 +1,42 @@
 .progression {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   position: relative;
+  margin-bottom: 20px;
 
-  .chord-apps {
-    position: absolute;
-    left: calc(50% + 200px);
-    background: white;
-    border: 1px solid black;
-    top: 50%;
-    width: 110px;
-    transform: translate(0, -50%);
-    padding: 20px 0;
-    text-align: center;
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
   }
 
-  .chord {
-    cursor: pointer;
-  }
-
-  &_title {
+  &__title {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
     text-align: center;
     margin: 0 auto 10px;
     display: block;
-
-    @media(max-width: 750px) {
-      margin-bottom: 5px;
-    };
+    color: #2f3640;
   }
 
-  &_chords {
-    height: 115px;
-    width: 180px;
-    background-color: white;
-    border: 1px solid black;
-    margin: 3px;
+  &__chords {
+    height: 120px;
+    width: calc(50% - 10px);
+    background-color: #2f3640;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
 
-    @media(max-width: 750px) {
-      height: 95px;
-    };
+  &__chords-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+  }
 
-    &_title {
-      background-color: white;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    &_diatonic_item {
-      background-color: white;
-      text-align: center;
-    }
-
-    &_basic_item {
-      background-color: white;
-      text-align: center;
-    }
+  &__chords-basic,
+  &__chords-diatonic {
+    color: #FFFFFF;
+    text-align: center;
   }
 }

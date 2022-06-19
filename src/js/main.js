@@ -33,9 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	let scale = [];
 
 	const rootNotes = document.querySelector('.select-root')
-	const scaleField = document.querySelector('.scale__output');
-	const diatonicChordField = document.querySelector('.progression_chords_diatonic_item');
-	const basicChordField = document.querySelector('.progression_chords_basic_item');
+	const diatonicChordField = document.querySelector('.progression__chords-diatonic');
+	const basicChordField = document.querySelector('.progression__chords-basic');
 
   document.addEventListener('changeSettings', (e) => {
     settings[e.detail.eventType] = e.detail.value;
@@ -114,10 +113,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const setChordApplicatures = () => {
 	  const chords = document.querySelectorAll('.chord')
-    const chordField = document.querySelector('.chord-apps');
+    const chordField = document.querySelector('.chord__notes');
     chords.forEach((item) => {
       item.addEventListener('click', (e) => {
-        chordField.innerHTML = `${e.target.innerText} = ${calcChord(e.target.innerText)}`;
+        chordField.innerHTML = `Notes: ${e.target.innerText} = ${calcChord(e.target.innerText)}`;
         // renderChordShape();
       })
     })

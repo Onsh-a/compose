@@ -75,6 +75,7 @@
 </section>
 <section class="container">
   <div class="scale">
+    <div class="scale__title">Current scale</div>
     <table class="scale__table">
       <tbody>
         <tr class="scale__steps">
@@ -102,17 +103,26 @@
   </div>
 </section>
 <section class="container">
-  <span class="progression_title">Possible progressions</span>
   <div class="progression">
-    <div class="chord-apps"></div>
-    <div class="progression_chords">
-      <span class="progression_chords_title">Basic chords:</span>
-      <div class="progression_chords_basic_item">II: Dm<br>III: Em<br>VI: Am<br>VII: Bdim<br></div>
+    <span class="progression__title">Possible progressions</span>
+    <div class="progression__wrapper">
+      <div class="progression__chords">
+        <span class="progression__chords-title">Basic chords:</span>
+        <div class="progression__chords-basic">II: Dm<br>III: Em<br>VI: Am<br>VII: Bdim<br></div>
+      </div>
+      <div class="progression__chords">
+        <span class="progression__chords-title">Diatonic chords:</span>
+        <div class="progression__chords-diatonic">root: C<br>IV: F<br>V: G<br></div>
+      </div>
     </div>
-    <div class="progression_chords">
-      <span class="progression_chords_title">Diatonic chords:</span>
-      <div class="progression_chords_diatonic_item">root: C<br>IV: F<br>V: G<br></div>
-    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="chord">
+    <span class="chord__title">Chord: </span>
+    <div class="chord__notes">Notes: </div>
+    <canvas class="chord__applicature"></canvas>
   </div>
 </section>
 

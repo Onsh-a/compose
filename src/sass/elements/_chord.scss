@@ -1,0 +1,15 @@
+.chord {
+  &__title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    text-align: center;
+    margin: 0 auto 10px;
+    display: block;
+    color: #2f3640;
+  }
+
+  &__applicature {
+    height: 0;
+    width: 0;
+  }
+}
