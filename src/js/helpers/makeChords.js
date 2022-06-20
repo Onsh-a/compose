@@ -2,7 +2,8 @@ const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const patterns = {
   maj: [0, 4, 7],
   m: [0, 3, 7],
-  dim: [0, 3, 6]
+  dim: [0, 3, 6],
+  aug: [0, 4, 8]
 }
 const calcChord = (chord) => {
   const chordType = getChordType(chord);

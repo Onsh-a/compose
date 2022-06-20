@@ -13,13 +13,15 @@ const initSelect = () => {
     option.addEventListener('click', (e) => {
       const parent = e.target.closest('.select-box');
       const eventType = parent.dataset.type;
-      const selected = option.querySelector('label').innerHTML;
-      parent.querySelector('.selected').innerHTML = selected;
+      const option = e.target.closest('.select-box__option')
+      const optionValue = option.dataset[eventType];
+      parent.querySelector('.selected').innerHTML = option.querySelector('label').innerHTML;
       option.parentNode.classList.remove('active');
       const eventDetail = {
         eventType: eventType,
-        value: selected.toLowerCase(),
+        value: optionValue,
       }
+      console.log(eventDetail)
       const changedSettings = new CustomEvent('changeSettings', { detail: eventDetail });
       document.dispatchEvent(changedSettings);
     });

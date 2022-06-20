@@ -40,14 +40,24 @@
   <div class="settings">
     <div class="select-box" data-type="scale">
       <div class="select-box__options">
-        <div class="select-box__option">
+        <div class="select-box__option" data-scale="major">
           <input type="radio" class="radio" id="major" name="category"/>
           <label for="major">Major</label>
         </div>
 
-        <div class="select-box__option">
-          <input type="radio" class="radio" id="minor" name="category"/>
-          <label for="minor">Minor</label>
+        <div class="select-box__option" data-scale="natural_minor">
+          <input type="radio" class="radio" id="natural_minor" name="category"/>
+          <label for="natural_minor">Natural Minor</label>
+        </div>
+
+        <div class="select-box__option" data-scale="harmonic_minor">
+          <input type="radio" class="radio" id="harmonic_minor" name="category"/>
+          <label for="harmonic_minor">Harmonic Minor</label>
+        </div>
+
+        <div class="select-box__option" data-scale="melodic_minor">
+          <input type="radio" class="radio" id="melodic_minor" name="category"/>
+          <label for="melodic_minor">Melodic Minor</label>
         </div>
       </div>
       <div class="selected">
@@ -57,12 +67,12 @@
 
     <div class="select-box" data-type="instrument">
       <div class="select-box__options">
-        <div class="select-box__option">
+        <div class="select-box__option" data-instrument="guitar">
           <input type="radio" class="radio" id="guitar" name="category"/>
           <label for="guitar">Guitar</label>
         </div>
 
-        <div class="select-box__option">
+        <div class="select-box__option" data-instrument="piano">
           <input type="radio" class="radio" id="piano" name="category"/>
           <label for="piano">Piano</label>
         </div>
@@ -111,7 +121,7 @@
         <div class="progression__chords-basic">II: Dm<br>III: Em<br>VI: Am<br>VII: Bdim<br></div>
       </div>
       <div class="progression__chords">
-        <span class="progression__chords-title">Diatonic chords:</span>
+        <span class="progression__chords-title">Main chords:</span>
         <div class="progression__chords-diatonic">root: C<br>IV: F<br>V: G<br></div>
       </div>
     </div>

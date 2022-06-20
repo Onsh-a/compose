@@ -1,24 +1,19 @@
-import romanize from './helpers/romanizeNumbers.js';
+import romanize from './helpers/romanizeNumbers';
 import calcChord from './helpers/makeChords';
 import printKeyboard from './helpers/printKeyboard';
 import initSelect from './helpers/customSelect';
+import calcDiatonic from "./helpers/diatonicChords";
 
 document.addEventListener('DOMContentLoaded', function() {
   initSelect();
 
 	const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
-	// тон тон полутон тон тон тон - мажор
-	// тон полутон тон тон полутон тон  - минор
 	const scalePatterns = {
 		major: [0, 2, 4, 5, 7, 9, 11],
-		minor: [0, 2, 3, 5, 7, 8, 10],
-	}
-
-	// diatonic patterns;
-	const diatonicPatterns = {
-		major: [0, 3, 4],
-		minor: [0, 2, 5, 6],
+		natural_minor: [0, 2, 3, 5, 7, 8, 10],
+    harmonic_minor: [0, 2, 3, 5, 7, 8, 11],
+    melodic_minor: [0, 2, 3, 5, 7, 9, 11],
 	}
 
 	// default settings
@@ -59,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scale = buildScale(settings.root, notes, settings.getPattern());
     printKeyboard(chordCanvas, calcChord(settings.root));
     printScaleTable(scale);
-    decideOnDiatonic(scale, settings.scale);
+    printDiatonicChords(calcDiatonic(scale, settings.scale));
     setChordApplicatures();
     canvasSetup(scale);
   };
@@ -82,37 +77,21 @@ document.addEventListener('DOMContentLoaded', function() {
     tableCells.forEach((item, index) => item.innerText = scale[index]);
   }
 
-	const decideOnDiatonic = (scale, diatonicPattern) => {
-		const pattern = diatonicPatterns[diatonicPattern];
-		const diatonicChords = [];
-		const basicChords = [];
-		let basicChordsText;
-		let diatonicChordsText;
+  const printDiatonicChords = (chords) => {
+    let mainSteps = '';
+    let commonSteps = '';
+    chords.forEach((item, index) => {
+      const sign = romanize(index + 1);
+      if ([0, 3, 4].includes(index)) {
+        mainSteps += `<span>${sign}: </span><span class="chord">${item}</span><br>`
+      } else {
+        commonSteps += `<span>${sign}: </span><span class="chord">${item}</span><br>`
+      }
+    })
 
-		scale.forEach((item, index) => {
-			if (pattern.includes(index)) return diatonicChords.push({ chord: item, step: romanize(index + 1) })
-			basicChords.push({ chord: item, step: romanize(index + 1) });
-		});
-
-		if (diatonicPattern === 'major') {
-			basicChordsText = basicChords.map((item, index) => `
-        <span>${item.step}:</span>
-        <span class="chord">${item.chord}${index === 3 ? 'dim' : 'm'}</span><br>`)
-			diatonicChordsText = diatonicChords.map((item, index) => `
-        <span>${item.step}:</span> 
-        <span class="chord">${item.chord}</span><br>`);
-		} else {
-			basicChordsText = basicChords.map((item, index) => `
-        <span>${item.step}:</span> 
-        <span class="chord">${item.chord}${index === 0 ? 'dim' : 'm'}</span><br>`)
-			diatonicChordsText = diatonicChords.map((item, index) => `
-        <span>${item.step}:</span> 
-        <span class="chord">${item.chord}${index === 0 ? 'm' : ''}</span><br>`)
-		}
-
-		diatonicChordField.innerHTML = diatonicChordsText.join('');
-		basicChordField.innerHTML = basicChordsText.join('');
-	}
+    diatonicChordField.innerHTML = mainSteps;
+    basicChordField.innerHTML = commonSteps;
+  }
 
 	const setChordApplicatures = () => {
 	  const chords = document.querySelectorAll('.progression .chord');
