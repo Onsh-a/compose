@@ -21,7 +21,6 @@ const initSelect = () => {
         eventType: eventType,
         value: optionValue,
       }
-      console.log(eventDetail)
       const changedSettings = new CustomEvent('changeSettings', { detail: eventDetail });
       document.dispatchEvent(changedSettings);
     });
