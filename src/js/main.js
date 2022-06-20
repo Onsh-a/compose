@@ -95,11 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const setChordApplicatures = () => {
 	  const chords = document.querySelectorAll('.progression .chord');
-    const chordField = document.querySelector('.chord__notes');
+    const title = document.querySelector('.chord__title');
     chords.forEach((item) => {
       item.addEventListener('click', (e) => {
         const chordNotes = calcChord(e.target.innerText);
-        chordField.innerHTML = `Notes: ${e.target.innerText} = ${chordNotes}`;
+        title.innerText = `Chord ${e.target.innerText}`;
         printKeyboard(chordCanvas, chordNotes);
       })
     })
