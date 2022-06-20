@@ -1,8 +1,8 @@
 const config = {
   notes: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
   pianoKeyboard: [true, false, true, false, true, true, false, true, false, true, false, true],
-  xCoordinate: 20,
-  yCoordinate: 20,
+  xCoordinate: 15,
+  yCoordinate: 15,
 }
 
 const rightKeys = (activeNotes) => config.notes.concat(config.notes).map((item) => {
@@ -16,7 +16,7 @@ const rightKeys = (activeNotes) => config.notes.concat(config.notes).map((item) 
 const printKeyboard = (canvas, activeNotes) => {
   const ctx = canvas.getContext('2d');
   canvas.width = 900;
-  canvas.height = 400;
+  canvas.height = 380;
   ctx.scale(2, 2);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   activeNotes = rightKeys(activeNotes);
@@ -44,7 +44,7 @@ const printKeyboard = (canvas, activeNotes) => {
 
     if (active) {
       const pointCoordX = x_coord + (key ? 30 : 22) / 2 - (key ? 8 : 6);
-      const pointCoordY = key ? 150 : 120;
+      const pointCoordY = key ? 145 : 115;
       const height = key ? 20 : 14
       ctx.globalCompositeOperation = "source-over";
       ctx.fillStyle = activeNotes[index].isRoot ? 'gold' : '#26CC26'
