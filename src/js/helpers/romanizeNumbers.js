@@ -1,4 +1,4 @@
-const romanize = (arabicNumber) => {
+export default function romanize(arabicNumber) {
 	if (arabicNumber === 1) return 'root';
 	if (!+arabicNumber) return NaN;
 	let digits = String(+arabicNumber).split('');
@@ -9,5 +9,3 @@ const romanize = (arabicNumber) => {
 	while (i--) roman = (key[+digits.pop() + (i * 10)] || '') + roman;
 	return Array(+digits.join('') + 1).join('M') + roman;
 };
-
-export default romanize;

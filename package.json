@@ -11,6 +11,8 @@
   "scripts": {
     "watch": "parcel serve index.html --open --port 3000",
     "build": "parcel build index.html",
+    "test-prepare": "parcel build src/js/helpers/testMap.js --dist-dir dist_test",
+    "test": "mocha",
     "prepare_deploy": "rm -rf dist/ && rm -rf node_modules/.cache/gh-pages && npm run build",
     "deploy": "npm run prepare_deploy && gh-pages -d dist"
   },
@@ -18,7 +20,15 @@
   "author": "Onsha",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/register": "^7.18.9",
     "@parcel/transformer-sass": "^2.6.1",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.20",
     "sass": "^1.51.0"
   },
   "dependencies": {

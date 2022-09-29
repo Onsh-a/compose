@@ -1,11 +1,16 @@
 import romanize from './helpers/romanizeNumbers';
-import calcChord from './helpers/makeChords';
-import printKeyboard from './helpers/printKeyboard';
+import Chord from './helpers/Chord';
+import Keyboard from './helpers/Keyboard';
+import Guitar from './helpers/Guitar';
 import initSelect from './helpers/customSelect';
-import calcDiatonic from "./helpers/diatonicChords";
 
 document.addEventListener('DOMContentLoaded', function() {
+  const canvas = document.querySelector('.canvas');
+
   initSelect();
+  const keyboard = new Keyboard();
+  const chord = new Chord();
+  const guitar = new Guitar(canvas);
 
 	const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -52,9 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const main = () => {
     scale = buildScale(settings.root, notes, settings.getPattern());
-    printKeyboard(chordCanvas, calcChord(settings.root));
+    keyboard.printKeyboard(chordCanvas, chord.calcChord(settings.root));
     printScaleTable(scale);
-    printDiatonicChords(calcDiatonic(scale, settings.scale));
+    printDiatonicChords(chord.calcDiatonic(scale, settings.scale));
     setChordApplicatures();
     canvasSetup(scale);
   };
@@ -98,32 +103,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const title = document.querySelector('.chord__title');
     chords.forEach((item) => {
       item.addEventListener('click', (e) => {
-        const chordNotes = calcChord(e.target.innerText);
+        const chordNotes = chord.calcChord(e.target.innerText);
         title.innerText = `Chord ${e.target.innerText}`;
-        printKeyboard(chordCanvas, chordNotes);
+        keyboard.printKeyboard(chordCanvas, chordNotes);
       })
     })
   }
 
 	// ======================= canvas settings ========================
 
-  const canvas = document.querySelector('.canvas');
 	const ctx = canvas.getContext('2d');
-  // ctx.scale(6, 6);
-  // canvas.width = 800;
-  // canvas.height = 200;
-
-	const guitarStrings = [
-		['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'], // first
-		['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
-		['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-		['D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E'],
-		['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
-		['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#']
-	]
-
-	const notesOnString = []; // array with current notes on the fretboard (active in scale)
-	const isToRender = []; // array with pattern to render these notes
 
 	const rightKeys = (scale) => {
 		return notes.map((item) => scale.includes(item));
@@ -136,90 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const render = (activeKeys, instrument) => {
 		if (instrument === 'piano') {
-      printKeyboard(canvas, scale);
+      keyboard.printKeyboard(canvas, scale);
 		} else if (instrument === 'guitar') {
-      const canvas = document.querySelector('.canvas');
-      canvas.width = 800;
-      canvas.height = 280;
-      ctx.scale(6, 6);
-			canvasGuitarSetup();
-			getNotesOnFretBoard();
-			renderGuitarNotes(notesOnString);
+      guitar.initGuitarCanvas(scale, settings.root);
 		}
 	};
 
-	const canvasGuitarSetup = () => {
-		ctx.globalCompositeOperation = "source-over";
-		ctx.lineWidth = '0.4'
-		const x_coord = 8
-		const y_coord = 3
-		const fretboardWidth = 120;
-		const fretboardHeight = 35;
-		const y_coord_string = 3.3;
-		const x_fret = x_coord;
-		const y_fret = y_coord;
-		ctx.strokeStyle = 'black'
-		ctx.fillStyle = '#a36f40';
-		ctx.strokeRect(x_coord, y_coord, fretboardWidth, fretboardHeight)
-		ctx.fillRect(x_coord, y_coord, fretboardWidth, fretboardHeight);
-
-		for (let i = 2; i <= 36; i += 6) { // generate strings
-			ctx.strokeStyle = 'lightgrey';
-			ctx.moveTo(x_coord, y_coord_string + i);
-			ctx.lineTo(x_coord + 120, y_coord_string + i);
-			ctx.stroke();
-		}
-
-		for (let i = 8; i <= 119; i += 8) { // generate frets
-			ctx.moveTo(x_fret + i, y_fret);
-			ctx.lineTo(x_fret + i, y_fret + fretboardHeight);
-			ctx.stroke();
-		}
-
-		// sets fret numbers
-		const step = 8.5
-		ctx.font = '4px Nunito, sans-serif';
-		ctx.fillStyle = 'black'
-		ctx.fillText('5', x_coord + (step * 4) + 1, 43);
-		ctx.fillText('7', x_coord + (step * 6), 43);
-		ctx.fillText('9', x_coord + (step * 8) - 1, 43);
-		ctx.fillText('12', x_coord + (step * 11) - 4, 43);
-	}
-
-	const getNotesOnFretBoard = () => {
-		for (let i = 0; i < 6; i++) {
-			notesOnString[i] = guitarStrings[i].filter((item) => scale.includes(item));
-			isToRender[i] = guitarStrings[i].map((item) => notesOnString[i].includes(item));
-		}
-	}
-
-	const renderGuitarNotes = () => {
-		let y_coord = -0.5
-		for (let i = 0; i < 6; i++) {
-			let x_coord = -4;
-			y_coord += 6;
-
-			for (let j = 0; j < 15; j++) {
-				if (isToRender[i][j] !== true) {
-					x_coord += 8; // if note is absent
-				} else {
-					ctx.beginPath();
-					ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-					ctx.fillStyle = guitarStrings[i][j] !== settings.root ? '#26CC26' : 'gold'
-					ctx.fill()
-					ctx.beginPath();
-					ctx.font = '3px Nunito, sans-serif';
-					ctx.fillStyle = 'black'
-					ctx.fillText(guitarStrings[i][j], x_coord + 8 - 1, y_coord + 1);
-					x_coord += 8;
-				}
-			}
-		}
-	}
-
   main();
-
-	// chords canvas
-  // TODO create chord shape drawing canvas
 });
 
