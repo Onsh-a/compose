@@ -2,15 +2,22 @@ import romanize from './helpers/romanizeNumbers';
 import Chord from './helpers/Chord';
 import Keyboard from './helpers/Keyboard';
 import Guitar from './helpers/Guitar';
+import Scale from './helpers/Scale';
 import initSelect from './helpers/customSelect';
 
-document.addEventListener('DOMContentLoaded', function() {
-  const canvas = document.querySelector('.canvas');
+document.addEventListener('DOMContentLoaded', () => {
+  const DEFAULT_ROOT = 'C';
+  const DEFAULT_SCALE_TYPE  = 'major';
+  const scaleCanvas = document.querySelector('.canvas');
+  const chordCanvas = document.querySelector('.chord__applicature');
 
   initSelect();
-  const keyboard = new Keyboard();
+  const chordKyboard = new Keyboard(chordCanvas);
+  const keyboard = new Keyboard(scaleCanvas);
+  const guitar = new Guitar(scaleCanvas);
   const chord = new Chord();
-  const guitar = new Guitar(canvas);
+  const scaleClass = new Scale(DEFAULT_ROOT, DEFAULT_SCALE_TYPE);
+  window.scaleClass = scaleClass;
 
 	const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -36,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	const rootNotes = document.querySelector('.select-root');
 	const diatonicChordField = document.querySelector('.progression__chords-diatonic');
 	const basicChordField = document.querySelector('.progression__chords-basic');
-  const chordCanvas = document.querySelector('.chord__applicature');
 
   document.addEventListener('changeSettings', (e) => {
     settings[e.detail.eventType] = e.detail.value;
@@ -57,11 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const main = () => {
     scale = buildScale(settings.root, notes, settings.getPattern());
-    keyboard.printKeyboard(chordCanvas, chord.calcChord(settings.root));
+    chordKyboard.renderKeyboard(chord.calcChord(settings.root));
     printScaleTable(scale);
     printDiatonicChords(chord.calcDiatonic(scale, settings.scale));
     setChordApplicatures();
-    canvasSetup(scale);
+    render(scale, settings.instrument);
   };
 
 	const toggleActive = (elem) => {
@@ -105,29 +111,18 @@ document.addEventListener('DOMContentLoaded', function() {
       item.addEventListener('click', (e) => {
         const chordNotes = chord.calcChord(e.target.innerText);
         title.innerText = `Chord ${e.target.innerText}`;
-        keyboard.printKeyboard(chordCanvas, chordNotes);
+        keyboard.renderKeyboard(chordNotes);
       })
     })
   }
 
 	// ======================= canvas settings ========================
 
-	const ctx = canvas.getContext('2d');
-
-	const rightKeys = (scale) => {
-		return notes.map((item) => scale.includes(item));
-	}
-
-	const canvasSetup = (scale) => {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		render(rightKeys(scale), settings.instrument);
-	}
-
 	const render = (activeKeys, instrument) => {
 		if (instrument === 'piano') {
-      keyboard.printKeyboard(canvas, scale);
+      keyboard.renderKeyboard(scale);
 		} else if (instrument === 'guitar') {
-      guitar.initGuitarCanvas(scale, settings.root);
+      guitar.renderGuitar(scale, settings.root);
 		}
 	};
 

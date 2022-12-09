@@ -1,10 +1,15 @@
 export default class Keyboard {
+  constructor(keyboardCanvas) {
+    this.canvas = keyboardCanvas;
+    this.ctx = this.canvas.getContext('2d');
+  }
+
   notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true];
   xCoordinate = 15;
   yCoordinate = 15;
 
-  rightKeys(activeNotes) {
+  preparedKeysData(activeNotes) {
     return this.notes.concat(this.notes).map((item) => {
       return {
         isActive: activeNotes.includes(item),
@@ -14,13 +19,13 @@ export default class Keyboard {
     });
   }
 
-  printKeyboard(canvas, activeNotes) {
-    const ctx = canvas.getContext('2d');
-    canvas.width = 900;
-    canvas.height = 380;
-    ctx.scale(2, 2);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    activeNotes = this.rightKeys(activeNotes);
+  renderKeyboard(activeNotes) {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.canvas.width = 900;
+    this.canvas.height = 380;
+    this.ctx.scale(2, 2);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    activeNotes = this.preparedKeysData(activeNotes);
 
     let x_coord = this.xCoordinate;
     let y_coord = this.yCoordinate;
@@ -29,33 +34,33 @@ export default class Keyboard {
 
     keyboardExtended.forEach((key, index) => {
       const active = activeNotes[index].isActive;
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'black';
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = 'black';
       if (key) {
-        ctx.fillStyle = 'white';
-        ctx.globalCompositeOperation = "destination-over";
-        ctx.fillRect(x_coord, y_coord, 30, 160);
-        ctx.strokeRect(x_coord, y_coord, 30, 160);
+        this.ctx.fillStyle = 'white';
+        this.ctx.globalCompositeOperation = "destination-over";
+        this.ctx.fillRect(x_coord, y_coord, 30, 160);
+        this.ctx.strokeRect(x_coord, y_coord, 30, 160);
       } else {
-        ctx.fillStyle = 'black';
-        ctx.globalCompositeOperation = "source-over";
-        ctx.fillRect(x_coord, y_coord, 22, 120);
-        ctx.strokeRect(x_coord, y_coord, 22, 120);
+        this.ctx.fillStyle = 'black';
+        this.ctx.globalCompositeOperation = "source-over";
+        this.ctx.fillRect(x_coord, y_coord, 22, 120);
+        this.ctx.strokeRect(x_coord, y_coord, 22, 120);
       }
 
       if (active) {
         const pointCoordX = x_coord + (key ? 30 : 22) / 2 - (key ? 8 : 6);
         const pointCoordY = key ? 145 : 115;
         const height = key ? 20 : 14
-        ctx.globalCompositeOperation = "source-over";
-        ctx.fillStyle = activeNotes[index].isRoot ? 'gold' : '#26CC26'
-        ctx.fillRect(pointCoordX, pointCoordY, key ? 16 : 12, height);
+        this.ctx.globalCompositeOperation = "source-over";
+        this.ctx.fillStyle = activeNotes[index].isRoot ? 'gold' : '#26CC26'
+        this.ctx.fillRect(pointCoordX, pointCoordY, key ? 16 : 12, height);
 
-        ctx.beginPath();
-        ctx.font = '8px Nunito, sans-serif';
-        ctx.fillStyle = 'black'
+        this.ctx.beginPath();
+        this.ctx.font = '8px Nunito, sans-serif';
+        this.ctx.fillStyle = 'black'
         const noteCoordX = activeNotes[index].note.length < 2 ? pointCoordX + 5 : pointCoordX;
-        ctx.fillText(activeNotes[index].note, noteCoordX, pointCoordY + height / 2 + 4);
+        this.ctx.fillText(activeNotes[index].note, noteCoordX, pointCoordY + height / 2 + 4);
       }
 
       if (key === true) x_coord += 20;

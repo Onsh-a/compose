@@ -2,7 +2,6 @@ export default class Guitar {
   constructor(guitarCanvas) {
     this.canvas = guitarCanvas;
     this.ctx = this.canvas.getContext('2d');
-    this.ctx.scale(6, 6);
   }
 
   guitarStrings = [
@@ -19,7 +18,7 @@ export default class Guitar {
   width = 800;
   height = 280;
 
-  initGuitarCanvas(scale, root) {
+  renderGuitar(scale, root) {
     this.scale = scale;
     this.root = root;
 
@@ -29,6 +28,10 @@ export default class Guitar {
   };
 
   canvasGuitarSetup () {
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.scale(6, 6);
     this.ctx.globalCompositeOperation = "source-over";
     this.ctx.lineWidth = '0.4'
     const x_coord = 8
