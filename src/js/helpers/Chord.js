@@ -14,9 +14,11 @@ export default class Chord {
   }
 
   calcChord(chord) {
+    console.log(chord);
     const chordType = this.getChordType(chord);
     const startPoint = this.notes.indexOf(this.getNote(chord));
     const sortedArr = this.notes.slice(startPoint).concat(this.notes.slice(0, startPoint));
+    console.log(this.patterns[chordType].map(item => sortedArr[item]));
     return this.patterns[chordType].map(item => sortedArr[item]);
   };
 

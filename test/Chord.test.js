@@ -1,10 +1,11 @@
-const testMap = require('../dist_test/testMap.js').default;
-const expect = require('chai').expect
+import Chord from '../src/js/helpers/Chord';
 
-describe("Chord", function() {
+describe('Chord class test', () => {
+  const chord = new Chord();
 
-  it("возводит в степень n", function() {
-    const ch = new testMap.chord();
-    expect(ch.calcChord('Cm').to.equal(['C', 'D#', 'G']));
+  test("Calculating chord", () => {
+    expect(chord.calcChord('F#dim').join('')).toBe('F#AC');
+    expect(chord.calcChord('Cm').join('')).toBe('CD#G');
+    expect(chord.calcChord('D#').join('')).toBe('D#GA#');
   });
 });
