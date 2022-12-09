@@ -7,5 +7,4 @@ describe("Chord", function() {
     const ch = new testMap.chord();
     expect(ch.calcChord('Cm').to.equal(['C', 'D#', 'G']));
   });
-
 });
