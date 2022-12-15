@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setChordApplicatures();
     keyboard.setIsSharp(scaleClass.isSharp);
     chordKyboard.setIsSharp(scaleClass.isSharp);
+    chord.setIsSharp(scaleClass.isSharp);
     guitar.setIsSharp(scaleClass.isSharp);
     render(scale, instrument);
   };
