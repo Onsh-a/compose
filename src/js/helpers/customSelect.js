@@ -1,4 +1,4 @@
-const initSelect = () => {
+export default function initSelect() {
   const selected = document.querySelectorAll('.selected');
   const optionsList = document.querySelectorAll('.select-box__option');
 
@@ -26,5 +26,3 @@ const initSelect = () => {
     });
   });
 }
-
-export default initSelect;

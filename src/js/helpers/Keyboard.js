@@ -1,22 +1,34 @@
 export default class Keyboard {
-  constructor(keyboardCanvas) {
+  constructor(keyboardCanvas, isSharp = true) {
     this.canvas = keyboardCanvas;
     this.ctx = this.canvas.getContext('2d');
+    this.isSharp = isSharp;
   }
 
-  notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  _notes = {
+    sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+    flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'F♭', 'G', 'A♭', 'A', 'B♭', 'B'],
+  }
   pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true];
   xCoordinate = 15;
   yCoordinate = 15;
 
   preparedKeysData(activeNotes) {
-    return this.notes.concat(this.notes).map((item) => {
+    return this._getNotes().concat(this._getNotes()).map((item) => {
       return {
         isActive: activeNotes.includes(item),
         note: item,
         isRoot: item === activeNotes[0],
       }
     });
+  }
+
+  _getNotes() {
+    return this._notes[this.isSharp ? 'sharp' : 'flat'];
+  }
+
+  setIsSharp(isSharp) {
+    this.isSharp = isSharp;
   }
 
   renderKeyboard(activeNotes) {
