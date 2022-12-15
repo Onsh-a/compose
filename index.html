@@ -19,20 +19,24 @@
   <div class="select-root select-wrapper">
     <span class="select-root__title">Choose the root note</span>
     <div class="select-root__up">
-      <div class="select-root__item active">C</div>
-      <div class="select-root__item">C#</div>
-      <div class="select-root__item">D</div>
-      <div class="select-root__item">D#</div>
-      <div class="select-root__item">E</div>
-      <div class="select-root__item">F</div>
+      <div class="select-root__item active" data-root="c">C</div>
+      <div class="select-root__item" data-root="c#">C#</div>
+      <div class="select-root__item" data-root="d">D</div>
+      <div class="select-root__item" data-root="d#">D#</div>
+      <div class="select-root__item" data-root="e">E</div>
+      <div class="select-root__item" data-root="f">F</div>
     </div>
     <div class="select-root__down">
-      <div class="select-root__item">F#</div>
-      <div class="select-root__item">G</div>
-      <div class="select-root__item">G#</div>
-      <div class="select-root__item">A</div>
-      <div class="select-root__item">A#</div>
-      <div class="select-root__item">B</div>
+      <div class="select-root__item" data-root="f#">F#</div>
+      <div class="select-root__item" data-root="g">G</div>
+      <div class="select-root__item" data-root="g#">G#</div>
+      <div class="select-root__item" data-root="a">A</div>
+      <div class="select-root__item" data-root="a#">A#</div>
+      <div class="select-root__item" data-root="b">B</div>
+    </div>
+    <div class="select-root alter">
+      <div class="select-root__alter active" data-is-sharp>Sharp</div>
+      <div class="select-root__alter" data-is-flat>Flat</div>
     </div>
   </div>
 </section>
@@ -130,7 +134,7 @@
 
 <section class="container">
   <div class="chord">
-    <span class="chord__title">Chord: </span>
+    <span class="chord__title">Chord: C</span>
     <canvas class="chord__applicature" width="300"></canvas>
   </div>
 </section>
