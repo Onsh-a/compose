@@ -10,6 +10,7 @@ export default class Scale {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
     flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
   }
+
   scalePatterns = {
     major: [0, 2, 4, 5, 7, 9, 11],
     natural_minor: [0, 2, 3, 5, 7, 8, 10],

@@ -20,11 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scaleClass = scaleClass;
 
 	// default settings
-	const settings = {
-		root: 'C',
-		scale: 'major',
-		instrument: 'guitar',
-	}
+	let instrument = 'guitar';
 
 	let scale = [];
 
@@ -51,6 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   document.addEventListener('changeSettings', (e) => {
+    if (e.detail.eventType === 'instrument') {
+      instrument = e.detail.value;
+      main();
+      return;
+    }
     scaleClass.setScaleType(e.detail.value);
     main();
   });
@@ -62,12 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     printScaleTable(scale);
     printDiatonicChords(chord.calcDiatonic(scale, scaleClass.scaleType));
     setChordApplicatures();
-    render(scale, settings.instrument);
+    keyboard.setIsSharp(scaleClass.isSharp);
+    chordKyboard.setIsSharp(scaleClass.isSharp);
+    guitar.setIsSharp(scaleClass.isSharp);
+    render(scale, instrument);
   };
 
 	const toggleActive = () => {
     rootNotes.querySelectorAll('.active').forEach(item => item.classList.remove('active'));
-    rootNotes.querySelector(`[data-root='${scaleClass.root.toLocaleLowerCase()}']`).classList.add('active');
+    let curRoot = rootNotes.querySelector(`[data-root='${scaleClass.root.toLocaleLowerCase()}']`);
+    if (!curRoot) {
+      scaleClass.setRoot(scaleClass.getNotes()[0]);
+      curRoot = rootNotes.querySelector(`[data-root='${scaleClass.root.toLocaleLowerCase()}']`);
+    }
+    curRoot.classList.add('active');
     rootNotes.querySelector(`[data-is-${scaleClass.isSharp ? 'sharp' : 'flat'}]`).classList.add('active');
 	}
 
@@ -110,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (instrument === 'piano') {
       keyboard.renderKeyboard(scale);
 		} else if (instrument === 'guitar') {
-      guitar.renderGuitar(scale, settings.root);
+      guitar.renderGuitar(scale, scaleClass.root);
 		}
 	};
 

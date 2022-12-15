@@ -1,17 +1,9 @@
 export default class Guitar {
-  constructor(guitarCanvas) {
+  constructor(guitarCanvas, isSharp = true) {
     this.canvas = guitarCanvas;
     this.ctx = this.canvas.getContext('2d');
+    this.isSharp = isSharp;
   }
-
-  guitarStrings = [
-    ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'], // first
-    ['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
-    ['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-    ['D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E'],
-    ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
-    ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#']
-  ]
 
   _guitarStrings = {
     sharp: [
@@ -23,16 +15,22 @@ export default class Guitar {
       ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#']
     ],
     flat: [
-      ['E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb'], // first
-      ['B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db'],
-      ['G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A'],
-      ['D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E'],
-      ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'],
-      ['E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb']
+      ['E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B', 'C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭'],
+      ['B', 'C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B', 'C', 'D♭'],
+      ['G', 'A♭', 'A', 'B♭', 'B', 'C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A'],
+      ['D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B', 'C', 'D♭', 'D', 'E♭', 'E'],
+      ['A', 'B♭', 'B', 'C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'],
+      ['E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B', 'C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭']
     ]
-
   }
 
+  setIsSharp(isSharp) {
+    this.isSharp = isSharp;
+  }
+
+  _getStrings() {
+    return this._guitarStrings[this.isSharp ? 'sharp' : 'flat'];
+  }
 
   notesOnString = [];
   isToRender = [];
@@ -92,8 +90,8 @@ export default class Guitar {
 
   getNotesOnFretBoard() {
     for (let i = 0; i < 6; i++) {
-      this.notesOnString[i] = this.guitarStrings[i].filter((item) => this.scale.includes(item));
-      this.isToRender[i] = this.guitarStrings[i].map((item) => this.notesOnString[i].includes(item));
+      this.notesOnString[i] = this._getStrings()[i].filter((item) => this.scale.includes(item));
+      this.isToRender[i] = this._getStrings()[i].map((item) => this.notesOnString[i].includes(item));
     }
   }
 
@@ -109,12 +107,12 @@ export default class Guitar {
         } else {
           this.ctx.beginPath();
           this.ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-          this.ctx.fillStyle = this.guitarStrings[i][j] !== this.root ? '#26CC26' : 'gold'
+          this.ctx.fillStyle = this._getStrings()[i][j] !== this.root ? '#26CC26' : 'gold'
           this.ctx.fill()
           this.ctx.beginPath();
           this.ctx.font = '3px Nunito, sans-serif';
           this.ctx.fillStyle = 'black'
-          this.ctx.fillText(this.guitarStrings[i][j], x_coord + 8 - 1, y_coord + 1);
+          this.ctx.fillText(this._getStrings()[i][j], x_coord + 8 - 1, y_coord + 1);
           x_coord += 8;
         }
       }
