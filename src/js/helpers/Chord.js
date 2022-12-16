@@ -43,6 +43,9 @@ export default class Chord {
 
   calcDiatonic(scale, scaleName) {
     const diatonicPattern = this.diatonicPatterns[scaleName];
-    return diatonicPattern.map((item, index) => `${scale[index]}${item}`);
+    if (diatonicPattern) {
+      return diatonicPattern.map((item, index) => `${scale[index]}${item}`);
+    }
+    return [];
   }
 }

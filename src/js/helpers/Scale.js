@@ -38,9 +38,9 @@ export default class Scale {
   }
 
   getScale() {
-    const noteSet = this.getNotes();
-    const startPoint = noteSet.indexOf(this.root);
-    const sortedArr = noteSet.slice(startPoint).concat(noteSet.slice(0, startPoint));
+    const notes = this.getNotes();
+    const startPoint = notes.indexOf(this.root);
+    const sortedArr = notes.slice(startPoint).concat(notes.slice(0, startPoint));
     return this.scalePattern.map(item => sortedArr[item]);
   }
 }

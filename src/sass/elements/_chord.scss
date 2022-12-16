@@ -1,4 +1,8 @@
 .chord {
+  &.hidden {
+    display: none;
+  }
+
   &__title {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;

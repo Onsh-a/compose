@@ -2,6 +2,10 @@
   position: relative;
   margin-bottom: 20px;
 
+  &.hidden {
+    display: none;
+  }
+
   .chord {
     cursor: pointer;
   }

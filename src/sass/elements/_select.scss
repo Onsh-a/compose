@@ -23,7 +23,6 @@
     order: 1;
     position: absolute;
     top: 100%;
-    cursor: pointer;
 
     &.active {
       max-height: 240px;
@@ -44,6 +43,11 @@
 
   &__option {
     padding: 10px 15px;
+    cursor: pointer;
+    label {
+      cursor: pointer;
+    }
+
     .radio {
       display: none;
     }
