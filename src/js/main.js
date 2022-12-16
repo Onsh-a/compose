@@ -129,14 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-	// ======================= canvas settings ========================
-
 	const render = (activeKeys, instrument) => {
-		if (instrument === 'piano') {
-      keyboard.renderKeyboard(scale);
-		} else if (instrument === 'guitar') {
-      guitar.renderGuitar(scale, scaleClass.root);
-		}
+	  switch (instrument) {
+      case ('piano'):
+        keyboard.renderKeyboard(scale);
+        break;
+      case ('guitar'):
+        guitar.renderGuitar(scale, scaleClass.root);
+        break;
+    }
 	};
 
   main();

@@ -7,7 +7,7 @@ export default class Keyboard {
 
   _notes = {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
-    flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'F♭', 'G', 'A♭', 'A', 'B♭', 'B'],
+    flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'],
   }
   pianoKeyboard = [true, false, true, false, true, true, false, true, false, true, false, true];
   xCoordinate = 15;
@@ -38,6 +38,7 @@ export default class Keyboard {
     this.ctx.scale(2, 2);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     activeNotes = this.preparedKeysData(activeNotes);
+    console.log(activeNotes);
 
     let x_coord = this.xCoordinate;
     let y_coord = this.yCoordinate;
