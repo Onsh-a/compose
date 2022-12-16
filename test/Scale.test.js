@@ -1,14 +1,14 @@
 import Scale from '../src/js/helpers/Scale';
 
 describe('Scale', () => {
-  const scale = new Scale('C', 'major');
   test('Scales calculate', () => {
-    expect(scale.getScale().join('')).toBe('CDEFGAB');
-
-    scale.setRoot('G');
-    expect(scale.getScale().join('')).toBe('GABCDEF#');
-
-    scale.setScaleType('natural_minor');
-    expect(scale.getScale().join('')).toBe('GAA#CDD#F');
+    expect(new Scale('C', 'major').getScale().join('')).toBe('CDEFGAB');
+    expect(new Scale('C', 'natural_minor').getScale().join('')).toBe('CDD#FGG#A#');
+    expect(new Scale('E♭', 'natural_minor', false).getScale().join('')).toBe('E♭FG♭A♭B♭BD♭');
+    expect(new Scale('C#', 'pentatonic_major').getScale().join('')).toBe('C#D#FG#A#');
+    expect(new Scale('F', 'pentatonic_major').getScale().join('')).toBe('FGACD');
+    expect(new Scale('B', 'pentatonic_minor').getScale().join('')).toBe('BDEF#A');
+    expect(new Scale('E', 'pentatonic_minor').getScale().join('')).toBe('EGABD');
+    expect(new Scale('E♭', 'pentatonic_minor', false).getScale().join('')).toBe('E♭G♭A♭B♭D♭');
   });
 });

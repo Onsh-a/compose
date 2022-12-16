@@ -16,6 +16,8 @@ export default class Scale {
     natural_minor: [0, 2, 3, 5, 7, 8, 10],
     harmonic_minor: [0, 2, 3, 5, 7, 8, 11],
     melodic_minor: [0, 2, 3, 5, 7, 9, 11],
+    pentatonic_major: [0, 2, 4, 7, 9],
+    pentatonic_minor: [0, 3, 5, 7, 10],
   };
 
   setRoot(root) {
