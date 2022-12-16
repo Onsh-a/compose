@@ -6,8 +6,17 @@ export default function initSelect() {
     item.addEventListener('click', () => {
       const optionsContainer = item.parentNode.querySelector('.select-box__options');
       optionsContainer.classList.toggle('active');
+      document.addEventListener('click', closeOptionList);
     });
   })
+
+  const closeOptionList = (e) => {
+    if (e.target.closest('.select-box')) {
+      return
+    }
+    document.querySelector('.select-box__options.active').classList.remove('active');
+    document.removeEventListener('click', closeOptionList);
+  }
 
   optionsList.forEach(option => {
     option.addEventListener('click', (e) => {
