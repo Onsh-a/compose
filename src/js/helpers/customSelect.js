@@ -31,6 +31,7 @@ export default function initSelect() {
         value: optionValue,
       }
       const changedSettings = new CustomEvent('changeSettings', { detail: eventDetail });
+      document.removeEventListener('click', closeOptionList);
       document.dispatchEvent(changedSettings);
     });
   });
