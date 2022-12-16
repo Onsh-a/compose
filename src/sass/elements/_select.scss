@@ -7,7 +7,7 @@
 
 .select-box {
   display: flex;
-  width: 250px;
+  width: 50%;
   flex-direction: column;
   position: relative;
   z-index: 2;
@@ -23,12 +23,14 @@
     order: 1;
     position: absolute;
     top: 100%;
+    cursor: pointer;
 
     &.active {
       max-height: 240px;
       opacity: 1;
       overflow-y: scroll;
       outline: none;
+      box-shadow: 1px 4px 21px 0px rgb(0 0 0 / 85%);
 
       + .selected {
         border-radius: 8px 8px 0 0;

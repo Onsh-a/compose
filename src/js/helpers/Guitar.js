@@ -81,7 +81,7 @@ export default class Guitar {
     // sets fret numbers
     const step = 8.5
     this.ctx.font = '4px Nunito, sans-serif';
-    this.ctx.fillStyle = 'black'
+    this.ctx.fillStyle = 'white';
     this.ctx.fillText('5', x_coord + (step * 4) + 1, 43);
     this.ctx.fillText('7', x_coord + (step * 6), 43);
     this.ctx.fillText('9', x_coord + (step * 8) - 1, 43);

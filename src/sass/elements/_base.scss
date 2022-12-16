@@ -20,3 +20,11 @@ body {
   width: 660px;
   max-width: calc(100% - 30px);
 }
+
+.scale-canvas {
+  height: auto;
+  width: 100%;
+  max-width: unset;
+  background-color: #2f3640;
+  border-radius: 8px;
+}
