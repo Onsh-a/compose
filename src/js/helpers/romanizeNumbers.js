@@ -1,5 +1,4 @@
 export default function romanize(arabicNumber) {
-	if (arabicNumber === 1) return 'root';
 	if (!+arabicNumber) return NaN;
 	let digits = String(+arabicNumber).split('');
 	let key = ['','C','CC','CCC','CD','D','DC','DCC','DCCC','CM',

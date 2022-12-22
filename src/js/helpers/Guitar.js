@@ -1,8 +1,7 @@
 export default class Guitar {
-  constructor(guitarCanvas, isSharp = true) {
+  constructor(guitarCanvas) {
     this.canvas = guitarCanvas;
     this.ctx = this.canvas.getContext('2d');
-    this.isSharp = isSharp;
   }
 
   _guitarStrings = {
@@ -24,8 +23,17 @@ export default class Guitar {
     ]
   }
 
-  setIsSharp(isSharp) {
+  _setIsSharp(isSharp) {
     this.isSharp = isSharp;
+  }
+
+  _defineIsSharp(scale) {
+    const note = scale.find(note => note.length > 1);
+    if (!note) {
+      this._setIsSharp(true);
+      return;
+    }
+    this._setIsSharp(note.split('')[1] === '#');
   }
 
   _getStrings() {
@@ -40,7 +48,7 @@ export default class Guitar {
   renderGuitar(scale, root) {
     this.scale = scale;
     this.root = root;
-
+    this._defineIsSharp(scale);
     this.canvasGuitarSetup();
     this.getNotesOnFretBoard();
     this.renderGuitarNotes(this.notesOnString);
@@ -107,7 +115,7 @@ export default class Guitar {
         } else {
           this.ctx.beginPath();
           this.ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-          this.ctx.fillStyle = this._getStrings()[i][j] !== this.root ? '#26CC26' : 'gold'
+          this.ctx.fillStyle = this._getStrings()[i][j] !== this.root.toUpperCase() ? '#26CC26' : 'gold'
           this.ctx.fill()
           this.ctx.beginPath();
           this.ctx.font = '3px Nunito, sans-serif';

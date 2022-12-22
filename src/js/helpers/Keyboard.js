@@ -1,8 +1,7 @@
 export default class Keyboard {
-  constructor(keyboardCanvas, isSharp = true) {
+  constructor(keyboardCanvas) {
     this.canvas = keyboardCanvas;
     this.ctx = this.canvas.getContext('2d');
-    this.isSharp = isSharp;
   }
 
   _notes = {
@@ -27,18 +26,27 @@ export default class Keyboard {
     return this._notes[this.isSharp ? 'sharp' : 'flat'];
   }
 
-  setIsSharp(isSharp) {
+  _setIsSharp(isSharp) {
     this.isSharp = isSharp;
   }
 
+  _defineIsSharp(scale) {
+    const note = scale.find(note => note.length > 1);
+    if (!note) {
+      this._setIsSharp(true);
+      return;
+    }
+    this._setIsSharp(note.split('')[1] === '#');
+  }
+
   renderKeyboard(activeNotes) {
+    this._defineIsSharp(activeNotes);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.canvas.width = 900;
     this.canvas.height = 380;
     this.ctx.scale(2, 2);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     activeNotes = this.preparedKeysData(activeNotes);
-    console.log(activeNotes);
 
     let x_coord = this.xCoordinate;
     let y_coord = this.yCoordinate;
