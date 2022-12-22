@@ -24,5 +24,4 @@ const scales = [
     name: 'Pentatonic Minor',
   },
 ];
-
 export default scales;

@@ -12,8 +12,18 @@
     </div>
 
     <div class="select-root alter">
-      <div :class="['select-root__alter', {'active': scale.isSharp}]" @click="isSharpUpdate(true)">Sharp</div>
-      <div :class="['select-root__alter', {'active': !scale.isSharp}]" @click="isSharpUpdate(false)">Flat</div>
+      <button
+        :class="['select-root__alter', {'active': scale.isSharp}]"
+        @click="isSharpUpdate(true)"
+      >
+        Sharp
+      </button>
+      <button
+        :class="['select-root__alter', {'active': !scale.isSharp}]"
+        @click="isSharpUpdate(false)"
+      >
+        Flat
+      </button>
     </div>
   </div>
 
@@ -33,6 +43,7 @@ import instruments from './../js/data/instruments';
 const props = defineProps({
   scale: Object
 })
+
 const emit = defineEmits([
   'rootnote-update',
   'is-sharp-update',

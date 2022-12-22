@@ -13,7 +13,6 @@ import Keyboard from '../../js/helpers/Keyboard.js';
 import { getCurrentInstance, onMounted, watch } from 'vue';
 
 const props = defineProps({
-  root: String,
   scale: Array,
   instrument: String,
 })
@@ -27,7 +26,7 @@ const render = () => {
       keyboard.renderKeyboard(props.scale);
       break;
     case ('guitar'):
-      guitar.renderGuitar(props.scale, props.root);
+      guitar.renderGuitar(props.scale);
       break;
   }
 }

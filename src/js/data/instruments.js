@@ -8,5 +8,4 @@ const instruments = [
     name: 'Piano',
   },
 ];
-
 export default instruments;

@@ -33,6 +33,10 @@
     justify-content: center;
     align-items: center;
 
+    &:focus {
+      outline: 2px solid #FFFFFF;
+    }
+
     &.active {
       border: 2px solid #2f3640;
       background-color: #FFFFFF;
@@ -85,7 +89,7 @@
     }
   }
 
-  &.alter div {
+  &.alter button {
     height: 40px;
     color: #fff;
     background-color: #2f3640;

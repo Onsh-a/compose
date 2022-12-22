@@ -45,9 +45,9 @@ export default class Guitar {
   width = 800;
   height = 280;
 
-  renderGuitar(scale, root) {
+  renderGuitar(scale) {
     this.scale = scale;
-    this.root = root;
+    this.root = scale[0];
     this._defineIsSharp(scale);
     this.canvasGuitarSetup();
     this.getNotesOnFretBoard();

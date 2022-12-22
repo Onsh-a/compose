@@ -1,5 +1,5 @@
 <template>
-  <Navigation/>
+  <Header />
   <section class="container">
     <ScaleSetting
       :scale="scale"
@@ -15,7 +15,6 @@
   <section class="container">
     <ui-canvas
       :scale="scale.getScale()"
-      :root="scale.root"
       :instrument="instrument"
     />
   </section>
@@ -23,7 +22,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import Navigation from './components/Navigation';
+import Header from './components/Header';
 import ScaleTable from './components/ScaleTable.vue'
 import ScaleSetting from './components/ScaleSetting';
 import Scale from './js/helpers/Scale';

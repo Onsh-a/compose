@@ -1,7 +1,7 @@
 <template>
-  <div :class="['select-root__item', { 'active': isRootNote() }]" @click="emit('rootnote-update', note)">
+  <button :class="['select-root__item', { 'active': isRootNote() }]" @click="emit('rootnote-update', note)">
     {{ note.toUpperCase() }}
-  </div>
+  </button>
 </template>
 
 <script setup>

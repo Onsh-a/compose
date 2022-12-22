@@ -38,7 +38,6 @@ const updateSelect = (selected) => {
 </script>
 
 <style lang="scss">
-
 .ui-select {
   border-radius: 8px;
   border: 0;
@@ -100,6 +99,5 @@ const updateSelect = (selected) => {
     top: 100%;
   }
 }
-
 </style>
 
