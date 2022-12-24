@@ -10,98 +10,99 @@
 </head>
 
 <body>
-<header>
-  <div class="container">
-    <h1 class="title">compose.io</h1>
-  </div>
-</header>
-<section class="container">
-  <div class="select-root select-wrapper">
-    <span class="select-root__title">Choose the root note</span>
-    <div class="select-root__up">
-      <div class="select-root__item active" data-root="c">C</div>
-      <div class="select-root__item" data-root="c#">C#</div>
-      <div class="select-root__item" data-root="d">D</div>
-      <div class="select-root__item" data-root="d#">D#</div>
-      <div class="select-root__item" data-root="e">E</div>
-      <div class="select-root__item" data-root="f">F</div>
+<div id="root">
+  <header>
+    <div class="container">
+      <h1 class="title">compose.io</h1>
     </div>
-    <div class="select-root__down">
-      <div class="select-root__item" data-root="f#">F#</div>
-      <div class="select-root__item" data-root="g">G</div>
-      <div class="select-root__item" data-root="g#">G#</div>
-      <div class="select-root__item" data-root="a">A</div>
-      <div class="select-root__item" data-root="a#">A#</div>
-      <div class="select-root__item" data-root="b">B</div>
-    </div>
-    <div class="select-root alter">
-      <div class="select-root__alter active" data-is-sharp>Sharp</div>
-      <div class="select-root__alter" data-is-flat>Flat</div>
-    </div>
-  </div>
-</section>
-<section class="container">
-  <div class="settings">
-    <div class="select-box" data-type="scale">
-      <div class="select-box__options">
-        <div class="select-box__option" data-scale="major">
-          <input type="radio" class="radio" id="major" name="category"/>
-          <label for="major">Major</label>
-        </div>
-
-        <div class="select-box__option" data-scale="natural_minor">
-          <input type="radio" class="radio" id="natural_minor" name="category"/>
-          <label for="natural_minor">Natural Minor</label>
-        </div>
-
-        <div class="select-box__option" data-scale="harmonic_minor">
-          <input type="radio" class="radio" id="harmonic_minor" name="category"/>
-          <label for="harmonic_minor">Harmonic Minor</label>
-        </div>
-
-        <div class="select-box__option" data-scale="melodic_minor">
-          <input type="radio" class="radio" id="melodic_minor" name="category"/>
-          <label for="melodic_minor">Melodic Minor</label>
-        </div>
-
-        <div class="select-box__option" data-scale="pentatonic_major">
-          <input type="radio" class="radio" id="pentatonic_major" name="category"/>
-          <label for="pentatonic_major">Pentatonic Major</label>
-        </div>
-
-        <div class="select-box__option" data-scale="pentatonic_minor">
-          <input type="radio" class="radio" id="pentatonic_minor" name="category"/>
-          <label for="pentatonic_minor">Pentatonic Minor</label>
-        </div>
+  </header>
+  <section class="container">
+    <div class="select-root select-wrapper">
+      <span class="select-root__title">Choose the root note</span>
+      <div class="select-root__up">
+        <div class="select-root__item active" data-root="c">C</div>
+        <div class="select-root__item" data-root="c#">C#</div>
+        <div class="select-root__item" data-root="d">D</div>
+        <div class="select-root__item" data-root="d#">D#</div>
+        <div class="select-root__item" data-root="e">E</div>
+        <div class="select-root__item" data-root="f">F</div>
       </div>
-      <div class="selected">
-        Major
+      <div class="select-root__down">
+        <div class="select-root__item" data-root="f#">F#</div>
+        <div class="select-root__item" data-root="g">G</div>
+        <div class="select-root__item" data-root="g#">G#</div>
+        <div class="select-root__item" data-root="a">A</div>
+        <div class="select-root__item" data-root="a#">A#</div>
+        <div class="select-root__item" data-root="b">B</div>
+      </div>
+      <div class="select-root alter">
+        <div class="select-root__alter active" data-is-sharp>Sharp</div>
+        <div class="select-root__alter" data-is-flat>Flat</div>
       </div>
     </div>
+  </section>
+  <section class="container">
+    <div class="settings">
+      <div class="select-box" data-type="scale">
+        <div class="select-box__options">
+          <div class="select-box__option" data-scale="major">
+            <input type="radio" class="radio" id="major" name="category"/>
+            <label for="major">Major</label>
+          </div>
 
-    <div class="select-box" data-type="instrument">
-      <div class="select-box__options">
-        <div class="select-box__option" data-instrument="guitar">
-          <input type="radio" class="radio" id="guitar" name="category"/>
-          <label for="guitar">Guitar</label>
+          <div class="select-box__option" data-scale="natural_minor">
+            <input type="radio" class="radio" id="natural_minor" name="category"/>
+            <label for="natural_minor">Natural Minor</label>
+          </div>
+
+          <div class="select-box__option" data-scale="harmonic_minor">
+            <input type="radio" class="radio" id="harmonic_minor" name="category"/>
+            <label for="harmonic_minor">Harmonic Minor</label>
+          </div>
+
+          <div class="select-box__option" data-scale="melodic_minor">
+            <input type="radio" class="radio" id="melodic_minor" name="category"/>
+            <label for="melodic_minor">Melodic Minor</label>
+          </div>
+
+          <div class="select-box__option" data-scale="pentatonic_major">
+            <input type="radio" class="radio" id="pentatonic_major" name="category"/>
+            <label for="pentatonic_major">Pentatonic Major</label>
+          </div>
+
+          <div class="select-box__option" data-scale="pentatonic_minor">
+            <input type="radio" class="radio" id="pentatonic_minor" name="category"/>
+            <label for="pentatonic_minor">Pentatonic Minor</label>
+          </div>
         </div>
-
-        <div class="select-box__option" data-instrument="piano">
-          <input type="radio" class="radio" id="piano" name="category"/>
-          <label for="piano">Piano</label>
+        <div class="selected">
+          Major
         </div>
       </div>
-      <div class="selected">
-        Guitar
+
+      <div class="select-box" data-type="instrument">
+        <div class="select-box__options">
+          <div class="select-box__option" data-instrument="guitar">
+            <input type="radio" class="radio" id="guitar" name="category"/>
+            <label for="guitar">Guitar</label>
+          </div>
+
+          <div class="select-box__option" data-instrument="piano">
+            <input type="radio" class="radio" id="piano" name="category"/>
+            <label for="piano">Piano</label>
+          </div>
+        </div>
+        <div class="selected">
+          Guitar
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<section class="container">
-  <div class="scale">
-    <div class="scale__title">Current scale</div>
-    <table class="scale__table">
-      <tbody>
+  </section>
+  <section class="container">
+    <div class="scale">
+      <div class="scale__title">Current scale</div>
+      <table class="scale__table">
+        <tbody>
         <tr class="scale__steps">
           <td>Step:</td>
           <td>I</td>
@@ -122,38 +123,37 @@
           <td>A</td>
           <td>B</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-<section class="container">
-  <div class="progression">
-    <span class="progression__title">Possible progressions</span>
-    <div class="progression__wrapper">
-      <div class="progression__chords">
-        <span class="progression__chords-title">Basic chords:</span>
-        <div class="progression__chords-basic">II: Dm<br>III: Em<br>VI: Am<br>VII: Bdim<br></div>
-      </div>
-      <div class="progression__chords">
-        <span class="progression__chords-title">Main chords:</span>
-        <div class="progression__chords-diatonic">root: C<br>IV: F<br>V: G<br></div>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="container">
+    <div class="progression">
+      <span class="progression__title">Possible progressions</span>
+      <div class="progression__wrapper">
+        <div class="progression__chords">
+          <span class="progression__chords-title">Basic chords:</span>
+          <div class="progression__chords-basic">II: Dm<br>III: Em<br>VI: Am<br>VII: Bdim<br></div>
+        </div>
+        <div class="progression__chords">
+          <span class="progression__chords-title">Main chords:</span>
+          <div class="progression__chords-diatonic">root: C<br>IV: F<br>V: G<br></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <section class="container">
+    <div class="chord application">
+      <span class="chord__title">Chord: C</span>
+      <canvas class="chord__applicature" width="300"></canvas>
+    </div>
+  </section>
+  <section class="container">
+    <canvas class='canvas scale-canvas' width='800' height="280"></canvas>
+  </section>
+</div>
 
-<section class="container">
-  <div class="chord application">
-    <span class="chord__title">Chord: C</span>
-    <canvas class="chord__applicature" width="300"></canvas>
-  </div>
-</section>
+<script type="module" src="./src/main.js"></script>
 
-<section class="container">
-  <canvas class='canvas scale-canvas' width='800' height="280"></canvas>
-</section>
-
-<script type="module" src="./src/js/main.js"></script>
 </body>
-
 </html>

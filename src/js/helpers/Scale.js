@@ -3,7 +3,7 @@ export default class Scale {
     this.root = root;
     this.scaleType = scaleType;
     this.isSharp = isSharp;
-    this.scalePattern = this.scalePatterns[scaleType];
+    this._scalePattern = this._scalePatterns[scaleType];
   }
 
   _notes = {
@@ -11,7 +11,7 @@ export default class Scale {
     flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
   }
 
-  scalePatterns = {
+  _scalePatterns = {
     major: [0, 2, 4, 5, 7, 9, 11],
     natural_minor: [0, 2, 3, 5, 7, 8, 10],
     harmonic_minor: [0, 2, 3, 5, 7, 8, 11],
@@ -26,10 +26,16 @@ export default class Scale {
 
   setScaleType(scaleType) {
     this.scaleType = scaleType;
-    this.scalePattern = this.scalePatterns[scaleType];
+    this._scalePattern = this._scalePatterns[scaleType];
   }
 
   setIsSharp(isSharp) {
+    if (this.root.length > 1) {
+      const index = this.getNotes().findIndex(note => this.root === note);
+      this.isSharp = isSharp;
+      this.setRoot(this.getNotes()[index]);
+      return;
+    }
     this.isSharp = isSharp;
   }
 
@@ -41,6 +47,6 @@ export default class Scale {
     const notes = this.getNotes();
     const startPoint = notes.indexOf(this.root);
     const sortedArr = notes.slice(startPoint).concat(notes.slice(0, startPoint));
-    return this.scalePattern.map(item => sortedArr[item]);
+    return this._scalePattern.map(item => sortedArr[item]);
   }
 }

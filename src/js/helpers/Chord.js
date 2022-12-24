@@ -1,6 +1,6 @@
 export default class Chord {
   patterns = {
-    maj: [0, 4, 7],
+    major: [0, 4, 7],
     m: [0, 3, 7],
     dim: [0, 3, 6],
     aug: [0, 4, 8],
@@ -16,8 +16,12 @@ export default class Chord {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
     flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'F♭', 'G', 'A♭', 'A', 'B♭', 'B'],
   }
-  _getNotes() {
+  getNotes() {
     return this._notes[this.isSharp ? 'sharp' : 'flat'];
+  }
+
+  getPatterns() {
+    return Object.keys(this.patterns);
   }
   setIsSharp(isSharp) {
     this.isSharp = isSharp;
@@ -25,8 +29,8 @@ export default class Chord {
 
   calcChord(chord) {
     const chordType = this.getChordType(chord);
-    const startPoint = this._getNotes().indexOf(this.getNote(chord));
-    const sortedArr = this._getNotes().slice(startPoint).concat(this._getNotes().slice(0, startPoint));
+    const startPoint = this.getNotes().indexOf(this.getNote(chord));
+    const sortedArr = this.getNotes().slice(startPoint).concat(this.getNotes().slice(0, startPoint));
     return this.patterns[chordType].map(item => sortedArr[item]);
   };
 
@@ -34,7 +38,7 @@ export default class Chord {
     let chordType = chord.split('');
     chordType = chordType.filter(item => /[a-zA-Z]+/.test(item)); // trim '#'
     chordType.shift();
-    return chordType.join('') || 'maj';
+    return chordType.join('') || 'major';
   }
 
   getNote(chord) {
