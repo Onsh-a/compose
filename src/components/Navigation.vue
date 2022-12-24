@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nav', {'active': isMenuActive}]">
+  <div :class="['nav', {'active': isMenuActive}]" ref="menu">
     <div class="burger" @click="toggleBurger">
       <div class="burger-line"></div>
       <div class="burger-line"></div>
@@ -7,10 +7,22 @@
     </div>
     <ul class="nav-menu">
       <li class="nav-menu__item">
-        Main
+        <router-link
+          class="nav-menu__item-link"
+          @click="toggleBurger"
+          to="/"
+        >
+          Main
+        </router-link>
       </li>
       <li class="nav-menu__item">
-        Chord Applicatures
+        <router-link
+          class="nav-menu__item-link"
+          to="/chord-applicatures"
+          @click="toggleBurger"
+        >
+          Chord Applicatures
+        </router-link>
       </li>
     </ul>
   </div>
@@ -20,15 +32,26 @@
 import { ref } from 'vue';
 
 const isMenuActive = ref(false);
+const menu = ref(null);
+
+const closeModal = (e) => {
+  if (!menu.value.contains(e.target)) {
+    toggleBurger();
+  }
+}
 
 const toggleBurger = () => {
   isMenuActive.value = !isMenuActive.value;
+  if (!isMenuActive.value) {
+    document.removeEventListener('click', closeModal);
+    return;
+  }
+  document.addEventListener('click', closeModal);
 }
 
 </script>
 
 <style lang="scss" scoped>
-
 .nav {
   height: calc(100% - 10px);
   margin: 5px;
@@ -81,7 +104,10 @@ const toggleBurger = () => {
     overflow: hidden;
     z-index: 2;
 
-    &__item {
+    &__item-link {
+      color: white;
+      text-decoration: none;
+      display: block;
       cursor: pointer;
       padding: 10px;
       transition: .2s;

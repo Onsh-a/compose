@@ -6,11 +6,12 @@
   "targets": {
     "web": {
       "context": "browser",
-      "publicUrl": "./"
+      "publicUrl": "/"
     }
   },
   "scripts": {
-    "watch": "parcel serve index.html --open --port 3000",
+    "watch": "parcel serve index.html --port 3000",
+    "watch_open": "parcel serve index.html --open --port 3000",
     "build": "parcel build index.html",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
     "prepare_deploy": "rm -rf dist/ && rm -rf node_modules/.cache/gh-pages && npm run build",
