@@ -3,17 +3,21 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Nunito', sans-serif;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 1rem;
 }
 
 body {
   background: lightgrey;
 }
 
+h1, h2, h3, h4 {
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
 .canvas {
   background-color: white;
-  margin: 10px auto 10px auto;
+  margin: 0 auto 10px auto;
   display: flex;
   align-items: center;
   border: 1px solid black;
@@ -25,6 +29,7 @@ body {
   height: auto;
   width: 100%;
   max-width: unset;
-  background-color: #2f3640;
+  background-color: $base-color;
   border-radius: 8px;
+  margin: 10px 0 0;
 }

@@ -42,7 +42,6 @@
    scale.value.setScaleType(scaleType);
  }
  const setInstrument = (updatedInstrument) => {
-   console.log(updatedInstrument.value);
    instrument.value = updatedInstrument.value;
  }
 </script>

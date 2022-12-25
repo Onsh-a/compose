@@ -15,7 +15,7 @@ import Navigation from './Navigation.vue';
 <style lang="scss" scoped>
 header {
   background-color: #2f3640;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   height: 40px;
   z-index: 3;
 

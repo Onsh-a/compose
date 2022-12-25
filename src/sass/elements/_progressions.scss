@@ -23,13 +23,13 @@
     text-align: center;
     margin: 0 auto 10px;
     display: block;
-    color: #2f3640;
+    color: $base-color;
   }
 
   &__chords {
     height: 120px;
     width: calc(50% - 10px);
-    background-color: #2f3640;
+    background-color: $base-color;
     border-radius: 8px;
     display: flex;
     flex-direction: column;

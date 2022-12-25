@@ -1,6 +1,6 @@
 <template>
   <div class="select-root select-wrapper">
-    <span class="select-root__title">Choose the root note</span>
+    <h2 class="select-root__title">Choose the root note:</h2>
 
     <div class="select-root__items">
       <RootNote
@@ -66,5 +66,4 @@ const scaleUpdated = (scaleType) => {
 const instrumentUpdated = (instrument) => {
   emit('instrument-update', instrument);
 }
-
 </script>
