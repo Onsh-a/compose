@@ -1,5 +1,5 @@
 <template>
-  <div :class="['ui-select', {'active': isActive }]">
+  <div :class="['ui-select', {'active': isActive }]" ref="select">
     <div class="ui-select__selected" @click="toggleAcitve">
       {{ currentValue ? currentValue : options[0] }}
     </div>
@@ -24,9 +24,21 @@ const emit = defineEmits(['select']);
 
 const currentValue = ref(props.value ? props.value : props.options[0].name);
 const isActive = ref(false);
+const select = ref(null);
+
+const closeSelect = (e) => {
+  if (!select.value.contains(e.target)) {
+    isActive.value = false;
+  }
+}
 
 const toggleAcitve = () => {
   isActive.value = !isActive.value;
+  if (!isActive.value) {
+    document.removeEventListener('click', closeSelect);
+    return;
+  }
+  document.addEventListener('click', closeSelect);
 }
 
 const updateSelect = (selected) => {
@@ -72,7 +84,7 @@ const updateSelect = (selected) => {
 
     &::after {
       content: '';
-      background-image: url('/src/images/arw.svg');
+      background-image: url('/src/assets/images/arw.svg');
       background-size: contain;
       background-repeat: no-repeat;
       position: absolute;

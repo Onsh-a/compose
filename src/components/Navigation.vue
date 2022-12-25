@@ -18,7 +18,7 @@
       <li class="nav-menu__item">
         <router-link
           class="nav-menu__item-link"
-          to="/chord-applicatures"
+          to="/chord-applicature"
           @click="toggleBurger"
         >
           Chord Applicatures

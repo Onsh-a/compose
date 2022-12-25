@@ -5,8 +5,7 @@
   "type": "module",
   "targets": {
     "web": {
-      "context": "browser",
-      "publicUrl": "/"
+      "context": "browser"
     }
   },
   "scripts": {
