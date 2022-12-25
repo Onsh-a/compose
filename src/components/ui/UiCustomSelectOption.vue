@@ -19,6 +19,12 @@ defineEmits([
 .option {
   padding: 10px 15px;
   cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    background-color: #FFFFFF;
+    color: #2f3640;
+  }
 
   label {
     cursor: pointer;

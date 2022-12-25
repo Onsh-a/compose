@@ -4,6 +4,20 @@
 
     <div class="applicature-root">
       <h4 class="applicature-root__title">Choose root:</h4>
+      <div class="applicature-root__alter">
+        <button
+          :class="['select-root__alter', {'active': isSharp}]"
+          @click="isSharpUpdate(true)"
+        >
+          Sharp
+        </button>
+        <button
+          :class="['select-root__alter', {'active': !isSharp}]"
+          @click="isSharpUpdate(false)"
+        >
+          Flat
+        </button>
+      </div>
       <div class="applicature-root__notes">
         <RootNote
           v-for="note in notes"
@@ -22,7 +36,7 @@
           v-for="chordType in chordTypes"
           @click="chordTypeUpdate(chordType)"
         >
-          {{ chordType }}
+          {{ chordType.replace('_', ' ') }}
         </button>
       </div>
     </div>
@@ -38,17 +52,21 @@ import Chord from '../js/helpers/Chord.js';
 
 const DEFAULT_ROOT = 'C';
 const DEFAULT_TYPE = 'major';
-const chord = new Chord();
-const chordTypes = chord.getPatterns();
-const notes = ref(chord.getNotes());
+const chord = ref(new Chord());
+const chordTypes = chord.value.getPatterns();
+const notes = computed(() => chord.value.getNotes());
+const isSharp = computed(() => chord.value.isSharp);
 const root = ref(DEFAULT_ROOT);
 const currentChordType = ref(DEFAULT_TYPE);
-const currentChordNotes = computed(() => {
-  return chord.calcChord(`${root.value}${currentChordType.value}`);
-})
+const currentChordNotes = computed(() => chord.value.calcChord(root.value, currentChordType.value));
 
 const rootUpdate = (rootNote) => {
   root.value = rootNote;
+}
+
+const isSharpUpdate = (state) => {
+  chord.value.setIsSharp(state);
+  console.log(chord.value.isSharp);
 }
 
 const chordTypeUpdate = (type) => {
@@ -89,6 +107,44 @@ const chordTypeUpdate = (type) => {
 
     button {
       width: 100%;
+    }
+  }
+
+  &__alter {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 10px;
+    position: relative;
+
+    &:after {
+      content: '';
+      width: 98%;
+      height: 2px;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #2f3640;
+      position: absolute;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 50%;
+      height: 40px;
+      color: #fff;
+      background-color: #2f3640;
+      border: 2px solid #2f3640;
+      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      cursor: pointer;
+
+      &.active {
+        background-color: #FFFFFF;
+        color: #2f3640;
+      }
     }
   }
 }
