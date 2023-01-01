@@ -1,4 +1,4 @@
-const scales = [
+const scales: scale[] = [
   {
     value: 'major',
     name: 'Major',
@@ -24,4 +24,9 @@ const scales = [
     name: 'Pentatonic Minor',
   },
 ];
+
+type scale = {
+  value: string,
+  name: string,
+}
 export default scales;

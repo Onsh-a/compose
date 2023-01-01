@@ -1,4 +1,4 @@
-const instruments = [
+const instruments: instrument[]= [
   {
     value: 'guitar',
     name: 'Guitar',
@@ -8,4 +8,9 @@ const instruments = [
     name: 'Piano',
   },
 ];
+
+type instrument = {
+  value: string,
+  name: string,
+}
 export default instruments;
