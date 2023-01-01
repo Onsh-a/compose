@@ -48,7 +48,7 @@
 import { ref, computed } from 'vue';
 import RootNote from '../components/RootNote.vue';
 import UiCanvas from './../components/ui/UiCanvas.vue';
-import Chord from '../js/helpers/Chord.js';
+import Chord from '../js/helpers/Chord.ts';
 
 const DEFAULT_ROOT = 'C';
 const DEFAULT_TYPE = 'major';

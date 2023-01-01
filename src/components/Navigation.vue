@@ -6,22 +6,13 @@
       <div class="burger-line"></div>
     </div>
     <ul class="nav-menu">
-      <li class="nav-menu__item">
+      <li class="nav-menu__item" v-for="menuItem in menuItems">
         <router-link
           class="nav-menu__item-link"
           @click="toggleBurger"
-          to="/"
+          :to="menuItem.path"
         >
-          Main
-        </router-link>
-      </li>
-      <li class="nav-menu__item">
-        <router-link
-          class="nav-menu__item-link"
-          to="/chord-applicature"
-          @click="toggleBurger"
-        >
-          Chord Applicatures
+          {{ menuItem.name }}
         </router-link>
       </li>
     </ul>
@@ -30,7 +21,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { routes } from './../router';
 
+const menuItems = routes.filter(item => item.isAvailableInMenu);
 const isMenuActive = ref(false);
 const menu = ref(null);
 

@@ -1,10 +1,16 @@
 export default class Guitar {
-  constructor(guitarCanvas) {
+  constructor(guitarCanvas:HTMLCanvasElement) {
     this.canvas = guitarCanvas;
     this.ctx = this.canvas.getContext('2d');
   }
 
-  _guitarStrings = {
+  private canvas: HTMLCanvasElement;
+  private readonly ctx: CanvasRenderingContext2D | null;
+  private isSharp: boolean | unknown;
+  private root: string | unknown;
+  private scale: string[] = [];
+
+  _guitarStrings: { [index:string]: string[][] } = {
     sharp: [
       ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'], // first
       ['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
@@ -23,11 +29,11 @@ export default class Guitar {
     ]
   }
 
-  _setIsSharp(isSharp) {
+  _setIsSharp(isSharp:boolean):void {
     this.isSharp = isSharp;
   }
 
-  _defineIsSharp(scale) {
+  _defineIsSharp(scale:string[]):void {
     const note = scale.find(note => note.length > 1);
     if (!note) {
       this._setIsSharp(true);
@@ -40,27 +46,30 @@ export default class Guitar {
     return this._guitarStrings[this.isSharp ? 'sharp' : 'flat'];
   }
 
-  notesOnString = [];
-  isToRender = [];
+  notesOnString:string[][] = [];
+  isToRender:boolean[][] = [];
   width = 800;
   height = 280;
 
-  renderGuitar(scale) {
+  renderGuitar(scale:string[]) {
     this.scale = scale;
     this.root = scale[0];
     this._defineIsSharp(scale);
     this.canvasGuitarSetup();
     this.getNotesOnFretBoard();
-    this.renderGuitarNotes(this.notesOnString);
+    this.renderGuitarNotes();
   };
 
   canvasGuitarSetup () {
+    if (!this.ctx) {
+      throw new Error('No canvas available');
+    }
     this.canvas.width = this.width;
     this.canvas.height = this.height;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.scale(6, 6);
-    this.ctx.globalCompositeOperation = "source-over";
-    this.ctx.lineWidth = '0.4'
+    this.ctx.globalCompositeOperation = 'source-over';
+    this.ctx.lineWidth = 0.4;
     const x_coord = 8
     const y_coord = 3
     const fretboardWidth = 120;
@@ -104,18 +113,19 @@ export default class Guitar {
   }
 
   renderGuitarNotes() {
+    if (!this.ctx) throw new Error('No canvas available');
     let y_coord = -0.5
     for (let i = 0; i < 6; i++) {
       let x_coord = -4;
       y_coord += 6;
 
       for (let j = 0; j < 15; j++) {
-        if (this.isToRender[i][j] !== true) {
+        if (!this.isToRender[i][j]) {
           x_coord += 8; // if note is absent
         } else {
           this.ctx.beginPath();
           this.ctx.arc(x_coord + 8, y_coord, 2, 0, 2 * Math.PI);
-          this.ctx.fillStyle = this._getStrings()[i][j] !== this.root.toUpperCase() ? '#26CC26' : 'gold'
+          this.ctx.fillStyle = this._getStrings()[i][j] !== this.root ? '#26CC26' : 'gold'
           this.ctx.fill()
           this.ctx.beginPath();
           this.ctx.font = '3px Nunito, sans-serif';

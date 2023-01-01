@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import Guitar from '../../js/helpers/Guitar.js';
+import Guitar from '../../js/helpers/Guitar.ts';
 import Keyboard from '../../js/helpers/Keyboard.js';
 import { getCurrentInstance, onMounted, watch } from 'vue';
 
