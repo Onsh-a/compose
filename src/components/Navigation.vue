@@ -95,7 +95,7 @@ const toggleBurger = () => {
     box-shadow: 1px 4px 21px 0 rgb(0 0 0 / 85%);
     border-radius: 0 0 8px 8px;
     overflow: hidden;
-    z-index: 2;
+    z-index: 3;
 
     &__item-link {
       color: white;

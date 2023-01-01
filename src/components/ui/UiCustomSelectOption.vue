@@ -1,13 +1,13 @@
 <template>
   <div class="option" @click="$emit('option-selected', option)">
-    <input type="radio" class="radio" :id="option.value" name="category"/>
-    <label :for="option.value">{{ option.name }}</label>
+    <input type="radio" class="radio" :id="option.value ? option.value : option" name="category"/>
+    <label :for="option.value ? option.value : option">{{ option.name ? option.name : option }}</label>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  option: Object,
+  option: Object | String | Number,
 });
 
 defineEmits([

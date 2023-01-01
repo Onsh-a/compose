@@ -22,12 +22,13 @@ const props = defineProps({
 
 const emit = defineEmits(['select']);
 
-const currentValue = ref(props.value ? props.value : props.options[0].name);
+const defaultValue = props.options[0].name ? props.options[0].name : props.options[0];
+const currentValue = ref(props.value ? props.value : defaultValue);
 const isActive = ref(false);
 const select = ref(null);
 
 const closeSelect = (e) => {
-  if (!select.value.contains(e.target)) {
+  if (select.value && !select.value.contains(e.target)) {
     isActive.value = false;
   }
 }
@@ -43,7 +44,7 @@ const toggleAcitve = () => {
 
 const updateSelect = (selected) => {
   isActive.value = false;
-  currentValue.value = selected.name;
+  currentValue.value = selected.name ? selected.name : selected;
   emit('select', selected);
 }
 

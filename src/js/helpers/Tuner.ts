@@ -1,12 +1,19 @@
 import tunings from '../data/tunings';
 
 export default class Tuner {
+  constructor(tuning = 'standart') {
+    this.activeTuning = tuning;
+  }
+  private activeTuning: string;
   getStringByFrequency(hz: number) {
     let currentString = null;
     let index = 0;
-    const tuningKeys = Object.keys(tunings.standart);
+    const currentTuning = tunings[this.activeTuning];
+    const tuningKeys = Object.keys(currentTuning);
+
+    console.log(currentTuning);
     while (!currentString && index < 6) {
-      const freq = tunings.standart[tuningKeys[index]];
+      const freq = currentTuning[tuningKeys[index]];
       const freqBacklash = freq * 0.2;
       const stringMinValue = freq - freqBacklash;
       const stringMaxValue = freq + freqBacklash;
@@ -16,6 +23,10 @@ export default class Tuner {
       index++;
     }
     return currentString ? currentString : 'not detected';
+  }
+
+  setActiveTuning(tuning:string):void {
+    this.activeTuning = tuning;
   }
 
   getTunerArrowAngle(target: number, frequency: number) {
@@ -32,6 +43,7 @@ export default class Tuner {
   }
 
   getFrequencyByNote(note: string) {
-    return tunings.standart[note] ? tunings.standart[note] : null;
+    const currentTuning = tunings[this.activeTuning];
+    return currentTuning[note] ? currentTuning[note] : null;
   }
 }
