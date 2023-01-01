@@ -1,4 +1,4 @@
-const binarySearch = (array, target) => {
+const binarySearch = (array:any[], target:any) => {
   let start = 0;
   let end = array.length - 1;
 
