@@ -23,6 +23,7 @@ header {
     display: flex;
     flex-direction: row;
     height: 100%;
+    align-items: center;
 
     .title {
       color: #FFFFFF;

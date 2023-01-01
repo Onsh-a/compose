@@ -1,8 +1,12 @@
 export default class Keyboard {
-  constructor(keyboardCanvas) {
+  constructor(keyboardCanvas: HTMLCanvasElement) {
     this.canvas = keyboardCanvas;
     this.ctx = this.canvas.getContext('2d');
   }
+
+  private canvas: HTMLCanvasElement;
+  private ctx: CanvasRenderingContext2D;
+  private isSharp: boolean;
 
   _notes = {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
@@ -84,8 +88,8 @@ export default class Keyboard {
         this.ctx.fillText(activeNotes[index].note, noteCoordX, pointCoordY + height / 2 + 4);
       }
 
-      if (key === true) x_coord += 20;
-      if (key === false && keyboardExtended[index + 1] !== false) x_coord += 10;
+      if (key) x_coord += 20;
+      if (!key && keyboardExtended[index + 1]) x_coord += 10;
       if (index === 4 || index === 11 || index === 16) x_coord += 10;
     })
   }

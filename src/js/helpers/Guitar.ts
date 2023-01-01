@@ -9,6 +9,10 @@ export default class Guitar {
   private isSharp: boolean | unknown;
   private root: string | unknown;
   private scale: string[] = [];
+  notesOnString: string[][] = [];
+  isToRender: boolean[][] = [];
+  width = 800;
+  height = 280;
 
   _guitarStrings: { [index:string]: string[][] } = {
     sharp: [
@@ -45,11 +49,6 @@ export default class Guitar {
   _getStrings() {
     return this._guitarStrings[this.isSharp ? 'sharp' : 'flat'];
   }
-
-  notesOnString:string[][] = [];
-  isToRender:boolean[][] = [];
-  width = 800;
-  height = 280;
 
   renderGuitar(scale:string[]) {
     this.scale = scale;

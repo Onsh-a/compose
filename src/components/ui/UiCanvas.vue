@@ -9,7 +9,7 @@
 
 <script setup>
 import Guitar from '../../js/helpers/Guitar.ts';
-import Keyboard from '../../js/helpers/Keyboard.js';
+import Keyboard from '../../js/helpers/Keyboard.ts';
 import { getCurrentInstance, onMounted, watch } from 'vue';
 
 const props = defineProps({

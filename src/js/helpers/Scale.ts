@@ -1,17 +1,22 @@
 export default class Scale {
-  constructor(root, scaleType, isSharp = true) {
+  constructor(root: string, scaleType: string, isSharp:boolean = true) {
     this.root = root;
     this.scaleType = scaleType;
     this.isSharp = isSharp;
     this._scalePattern = this._scalePatterns[scaleType];
   }
 
+  private root: string;
+  private scaleType: string;
+  private isSharp: boolean;
+  private _scalePattern: number[];
+
   _notes = {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
     flat: ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
   }
 
-  _scalePatterns = {
+  _scalePatterns: { [index: string]: number[] } = {
     major: [0, 2, 4, 5, 7, 9, 11],
     natural_minor: [0, 2, 3, 5, 7, 8, 10],
     harmonic_minor: [0, 2, 3, 5, 7, 8, 11],
