@@ -12,7 +12,7 @@
     "watch": "parcel serve index.html --port 3000",
     "watch_open": "parcel serve index.html --open --port 3000",
     "build": "parcel build index.html",
-    "ts_check": "tsc --noEmit",
+    "ts_check": "tsc --noEmit -w",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
     "prepare_deploy": "rm -rf dist/ && rm -rf node_modules/.cache/gh-pages && npm run build",
     "deploy": "npm run prepare_deploy && gh-pages -d dist"

@@ -1,4 +1,4 @@
-const tunings = {
+const tunings: { [index: string]: { [index: string]: number} } = {
   standart: {
     E1: 329.63,
     B2: 246.94,

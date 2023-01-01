@@ -1,7 +1,7 @@
-import tunings from '../data/tunings.js';
+import tunings from '../data/tunings';
 
 export default class Tuner {
-  getStringByFrequency(hz) {
+  getStringByFrequency(hz: number) {
     let currentString = null;
     let index = 0;
     const tuningKeys = Object.keys(tunings.standart);
@@ -18,7 +18,7 @@ export default class Tuner {
     return currentString ? currentString : 'not detected';
   }
 
-  getTunerArrowAngle(target, frequency) {
+  getTunerArrowAngle(target: number, frequency: number) {
     if (!target && !frequency) {
       return 0;
     }
@@ -31,7 +31,7 @@ export default class Tuner {
     return position >= 90 ? 90: position;
   }
 
-  getFrequencyByNote(note) {
+  getFrequencyByNote(note: string) {
     return tunings.standart[note] ? tunings.standart[note] : null;
   }
 }

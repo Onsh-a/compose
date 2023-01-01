@@ -5,8 +5,8 @@ export default class Keyboard {
   }
 
   private canvas: HTMLCanvasElement;
-  private ctx: CanvasRenderingContext2D;
-  private isSharp: boolean;
+  private readonly ctx: CanvasRenderingContext2D | null;
+  private isSharp: boolean | unknown;
 
   _notes = {
     sharp: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
@@ -16,7 +16,7 @@ export default class Keyboard {
   xCoordinate = 15;
   yCoordinate = 15;
 
-  preparedKeysData(activeNotes) {
+  preparedKeysData(activeNotes: string[]) {
     return this._getNotes().concat(this._getNotes()).map((item) => {
       return {
         isActive: activeNotes.includes(item),
@@ -30,11 +30,11 @@ export default class Keyboard {
     return this._notes[this.isSharp ? 'sharp' : 'flat'];
   }
 
-  _setIsSharp(isSharp) {
+  _setIsSharp(isSharp: boolean): void {
     this.isSharp = isSharp;
   }
 
-  _defineIsSharp(scale) {
+  _defineIsSharp(scale: string[]): void {
     const note = scale.find(note => note.length > 1);
     if (!note) {
       this._setIsSharp(true);
@@ -43,14 +43,15 @@ export default class Keyboard {
     this._setIsSharp(note.split('')[1] === '#');
   }
 
-  renderKeyboard(activeNotes) {
+  renderKeyboard(activeNotes: string[]): void {
+    if (!this.ctx) throw new Error('No canvas available');
     this._defineIsSharp(activeNotes);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.canvas.width = 900;
     this.canvas.height = 380;
     this.ctx.scale(2, 2);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    activeNotes = this.preparedKeysData(activeNotes);
+    const activeNotesPrepared = this.preparedKeysData(activeNotes);
 
     let x_coord = this.xCoordinate;
     let y_coord = this.yCoordinate;
@@ -58,17 +59,18 @@ export default class Keyboard {
     const keyboardExtended = this.pianoKeyboard.concat(this.pianoKeyboard);
 
     keyboardExtended.forEach((key, index) => {
-      const active = activeNotes[index].isActive;
+      if (!this.ctx) throw new Error('No canvas available');
+      const active = activeNotesPrepared[index].isActive;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = 'black';
       if (key) {
         this.ctx.fillStyle = 'white';
-        this.ctx.globalCompositeOperation = "destination-over";
+        this.ctx.globalCompositeOperation = 'destination-over';
         this.ctx.fillRect(x_coord, y_coord, 30, 160);
         this.ctx.strokeRect(x_coord, y_coord, 30, 160);
       } else {
         this.ctx.fillStyle = 'black';
-        this.ctx.globalCompositeOperation = "source-over";
+        this.ctx.globalCompositeOperation = 'source-over';
         this.ctx.fillRect(x_coord, y_coord, 22, 120);
         this.ctx.strokeRect(x_coord, y_coord, 22, 120);
       }
@@ -78,14 +80,14 @@ export default class Keyboard {
         const pointCoordY = key ? 145 : 115;
         const height = key ? 20 : 14
         this.ctx.globalCompositeOperation = "source-over";
-        this.ctx.fillStyle = activeNotes[index].isRoot ? 'gold' : '#26CC26'
+        this.ctx.fillStyle = activeNotesPrepared[index].isRoot ? 'gold' : '#26CC26'
         this.ctx.fillRect(pointCoordX, pointCoordY, key ? 16 : 12, height);
 
         this.ctx.beginPath();
         this.ctx.font = '8px Nunito, sans-serif';
         this.ctx.fillStyle = 'black'
-        const noteCoordX = activeNotes[index].note.length < 2 ? pointCoordX + 5 : pointCoordX;
-        this.ctx.fillText(activeNotes[index].note, noteCoordX, pointCoordY + height / 2 + 4);
+        const noteCoordX = activeNotesPrepared[index].note.length < 2 ? pointCoordX + 5 : pointCoordX;
+        this.ctx.fillText(activeNotesPrepared[index].note, noteCoordX, pointCoordY + height / 2 + 4);
       }
 
       if (key) x_coord += 20;

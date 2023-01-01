@@ -25,16 +25,16 @@ export default class Scale {
     pentatonic_minor: [0, 3, 5, 7, 10],
   };
 
-  setRoot(root) {
+  setRoot(root: string): void {
     this.root = root;
   }
 
-  setScaleType(scaleType) {
+  setScaleType(scaleType: string): void {
     this.scaleType = scaleType;
     this._scalePattern = this._scalePatterns[scaleType];
   }
 
-  setIsSharp(isSharp) {
+  setIsSharp(isSharp: boolean): void {
     if (this.root.length > 1) {
       const index = this.getNotes().findIndex(note => this.root === note);
       this.isSharp = isSharp;
