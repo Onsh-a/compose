@@ -28,17 +28,7 @@ const modelPath = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/
 const tuner = new Tuner();
 
 const tunerArrowAngle = computed(() => {
-  if (!tunerTarget.value && !freq.value) {
-    return 0;
-  }
-  let position;
-  if (freq.value <= tunerTarget.value) {
-
-    position = ((tunerTarget.value - freq.value) / freq.value) * 100 * -4
-    return position <= -90 ? -90: position;
-  }
-  position = ((freq.value - tunerTarget.value) / freq.value) * 100 * 4;
-  return position >= 90 ? 90: position;
+  return tuner.getTunerArrowAngle(tunerTarget.value, freq.value);
 });
 
 const tunerTarget = computed(() => {
@@ -64,7 +54,7 @@ const modelLoaded = () => {
 }
 
 const getPitch = () => {
-  pitch.getPitch(function(err, frequency) {
+  pitch.getPitch((err, frequency) => {
     if (!frequency) {
       freq.value = null;
       note.value = null;

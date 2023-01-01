@@ -18,6 +18,19 @@ export default class Tuner {
     return currentString ? currentString : 'not detected';
   }
 
+  getTunerArrowAngle(target, frequency) {
+    if (!target && !frequency) {
+      return 0;
+    }
+    let position;
+    if (frequency <= target) {
+      position = ((target - frequency) / frequency) * 100 * -4;
+      return position <= -90 ? -90: position;
+    }
+    position = ((frequency - target) / frequency) * 100 * 4;
+    return position >= 90 ? 90: position;
+  }
+
   getFrequencyByNote(note) {
     return tunings.standart[note] ? tunings.standart[note] : null;
   }
