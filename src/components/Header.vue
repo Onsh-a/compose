@@ -16,7 +16,6 @@ import Navigation from './Navigation.vue';
 header {
   background-color: #2f3640;
   margin-bottom: 50px;
-  height: 40px;
   z-index: 3;
 
   .container {

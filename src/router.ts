@@ -3,6 +3,7 @@ import Main from './views/Main.vue';
 import ChordApplicature from './views/ChordApplicature.vue';
 import NotFound from './views/NotFound.vue';
 import Tuner from './views/Tuner.vue';
+import Drum from './views/Drum.vue';
 
 export const routes: Array<RouteRecordRaw & { isAvailableInMenu: boolean }> = [
   {
@@ -22,7 +23,12 @@ export const routes: Array<RouteRecordRaw & { isAvailableInMenu: boolean }> = [
     component: Tuner,
     isAvailableInMenu: true,
     name: 'Tuner',
-
+  },
+  {
+    path: '/drum-machine',
+    component: Drum,
+    isAvailableInMenu: true,
+    name: 'Drum',
   },
   {
     path: '/not-found',

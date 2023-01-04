@@ -46,9 +46,9 @@ const toggleBurger = () => {
 
 <style lang="scss" scoped>
 .nav {
-  height: calc(100% - 10px);
+  height: 40px;
   margin: 5px;
-  width: 30px;
+  width: 40px;
   background-color: white;
   border-radius: 8px;
   display: flex;
@@ -74,11 +74,11 @@ const toggleBurger = () => {
       border-radius: 8px;
 
       &:nth-child(1) {
-        top: calc(50% - 6px);
+        top: calc(50% - 7px);
       }
 
       &:nth-child(3) {
-        top: calc(50% + 6px);
+        top: calc(50% + 7px);
       }
     }
   }
