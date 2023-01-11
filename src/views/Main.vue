@@ -20,7 +20,7 @@
 </template>
 
  <script setup>
- import { ref } from 'vue';
+ import { ref, reactive } from 'vue';
  import ScaleTable from './../components/ScaleTable.vue'
  import ScaleSetting from './../components/ScaleSetting';
  import Scale from './../js/helpers/Scale';
@@ -30,16 +30,16 @@
  const DEFAULT_SCALE = 'major';
  const DEFAULT_INSTRUMENT = 'guitar';
 
- const scale = ref(new Scale(DEFAULT_ROOT, DEFAULT_SCALE));
+ const scale = reactive(new Scale(DEFAULT_ROOT, DEFAULT_SCALE));
  const instrument = ref(DEFAULT_INSTRUMENT);
  const setRoot = (root) => {
-   scale.value.setRoot(root);
+   scale.setRoot(root);
  }
  const setIsSharp = (isSharp) => {
-   scale.value.setIsSharp(isSharp);
+   scale.setIsSharp(isSharp);
  }
  const setScaleType = (scaleType) => {
-   scale.value.setScaleType(scaleType);
+   scale.setScaleType(scaleType);
  }
  const setInstrument = (updatedInstrument) => {
    instrument.value = updatedInstrument.value;

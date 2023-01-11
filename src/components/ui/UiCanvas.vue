@@ -7,34 +7,41 @@
   </canvas>
 </template>
 
-<script setup>
-import Guitar from '../../js/helpers/Guitar.ts';
-import Keyboard from '../../js/helpers/Keyboard.ts';
-import { getCurrentInstance, onMounted, watch } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
+import type { Ref, PropType } from 'vue';
+import Guitar from '../../js/helpers/Guitar';
+import Keyboard from '../../js/helpers/Keyboard';
+import { onMounted, watch } from 'vue';
 
 const props = defineProps({
-  scale: Array,
+  scale: Array as PropType<string[]>,
   instrument: String,
 })
 
-let guitar;
-let keyboard;
+let guitar: Guitar | null;
+let keyboard: Keyboard | null;
 
 const render = () => {
+  if (!props.scale) throw new Error('Failed to render due to scale absence');
   switch (props.instrument) {
     case ('piano'):
+      if (!keyboard) return;
       keyboard.renderKeyboard(props.scale);
       break;
     case ('guitar'):
+      if (!guitar) return;
       guitar.renderGuitar(props.scale);
       break;
   }
 }
 
+const canvas: Ref<HTMLCanvasElement | null> = ref(null);
+
 onMounted(() => {
-  const canvas = getCurrentInstance().refs.canvas;
-  guitar = new Guitar(canvas);
-  keyboard = new Keyboard(canvas);
+  if (!canvas.value) throw new Error('Canvas element is not available');
+  guitar = new Guitar(canvas.value);
+  keyboard = new Keyboard(canvas.value);
   render();
 })
 

@@ -6,9 +6,9 @@ export default class Scale {
     this._scalePattern = this._scalePatterns[scaleType];
   }
 
-  private root: string;
-  private scaleType: string;
-  private isSharp: boolean;
+  public root: string;
+  public scaleType: string;
+  public isSharp: boolean;
   private _scalePattern: number[];
 
   _notes = {

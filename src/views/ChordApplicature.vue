@@ -21,9 +21,9 @@
       <div class="applicature-root__notes">
         <RootNote
           v-for="note in notes"
+          :class="{ active: note === root }"
           @rootnote-update="rootUpdate"
           :note="note"
-          :root="root"
         />
       </div>
     </div>
@@ -37,6 +37,8 @@
           @click="chordTypeUpdate(chordType)"
         >
           {{ chordType.replace('_', ' ') }}
+
+          <ui-hint hint-text="here is some hint text"/>
         </button>
       </div>
     </div>
@@ -44,35 +46,35 @@
   </section>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue';
 import RootNote from '../components/RootNote.vue';
 import UiCanvas from './../components/ui/UiCanvas.vue';
-import Chord from '../js/helpers/Chord.ts';
+import Chord from '../js/helpers/Chord';
+import UiHint from '../components/ui/UiHint.vue';
 
 const DEFAULT_ROOT = 'C';
 const DEFAULT_TYPE = 'major';
-const chord = ref(new Chord());
-const chordTypes = chord.value.getPatterns();
-const notes = computed(() => chord.value.getNotes());
-const isSharp = computed(() => chord.value.isSharp);
+const chord = reactive(new Chord());
+const chordTypes = chord.getPatterns();
+const notes = computed(() => chord.getNotes());
+const isSharp = computed(() => chord.isSharp);
 const root = ref(DEFAULT_ROOT);
 const currentChordType = ref(DEFAULT_TYPE);
-const currentChordNotes = computed(() => chord.value.calcChord(root.value, currentChordType.value));
+const currentChordNotes = computed(() => chord.calcChord(root.value, currentChordType.value));
 
-const rootUpdate = (rootNote) => {
+const rootUpdate = (rootNote: string) => {
   root.value = rootNote;
 }
 
-const isSharpUpdate = (state) => {
-  chord.value.setIsSharp(state);
-  console.log(chord.value.isSharp);
+const isSharpUpdate = (isSharp: boolean) => {
+  chord.setIsSharp(isSharp);
+  console.log(chord.isSharp);
 }
 
-const chordTypeUpdate = (type) => {
+const chordTypeUpdate = (type: string) => {
   currentChordType.value = type;
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -178,6 +180,13 @@ const chordTypeUpdate = (type) => {
     display: flex;
     cursor: pointer;
     text-transform: capitalize;
+    position: relative;
+
+    .hint {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
 
     &.active {
       color: #2F3640;

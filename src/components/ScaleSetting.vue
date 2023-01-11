@@ -6,7 +6,7 @@
       <RootNote
         v-for="note in notes()"
         :note="note"
-        :root="scale.root"
+        :class="{ active: note === scale.root }"
         @rootnote-update="emit('rootnote-update', note)"
       />
     </div>
@@ -34,14 +34,15 @@
 
 </template>
 
-<script setup>
-import RootNote from './RootNote';
+<script setup lang="ts">
+import RootNote from './RootNote.vue';
+import scaleInterface  from '../js/helpers/Scale';
 import UiCustomSelect from './ui/UiCustomSelect.vue';
-import scales from './../js/data/scales';
+import { scales, scaleType } from '../js/data/scales';
 import instruments from './../js/data/instruments';
 
 const props = defineProps({
-  scale: Object
+  scale: scaleInterface
 })
 
 const emit = defineEmits([
@@ -52,18 +53,18 @@ const emit = defineEmits([
 ]);
 
 const notes = () => {
-  return props.scale.getNotes();
+  return props.scale ? props.scale.getNotes() : [];
 }
 
-const isSharpUpdate = (isSharp) => {
+const isSharpUpdate = (isSharp: boolean) => {
   emit('is-sharp-update', isSharp);
 }
 
-const scaleUpdated = (scaleType) => {
+const scaleUpdated = (scaleType: scaleType) => {
   emit('scale-type-update', scaleType.value);
 }
 
-const instrumentUpdated = (instrument) => {
+const instrumentUpdated = (instrument: string) => {
   emit('instrument-update', instrument);
 }
 </script>

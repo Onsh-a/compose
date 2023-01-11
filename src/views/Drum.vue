@@ -16,10 +16,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, watch, ref } from 'vue';
 import type { Ref } from 'vue';
 import DrumControls from '../components/DrumControls.vue';
 import DrumBeats from '../components/DrumBeats.vue';
+import debounce from '../js/helpers/debounce';
 
 const snare = new Audio('/sounds/snare.wav');
 const kick = new Audio('/sounds/kick.wav');
@@ -68,7 +69,6 @@ const play = () => {
     }
     currentBeat++;
     if (currentBeat === 4) {
-      console.log('renewed');
       currentBeat = 0;
     }
   }, getIntervalByBpm(bpm.value))
@@ -79,6 +79,19 @@ const stop = () => {
   currentBeat = 0;
   clearInterval(interval1);
 }
+
+const changeBeatsQty = (newValue: number, oldValue: number) => {
+  for (const track in beatMatrix.value) {
+    const curTrack = beatMatrix.value[track];
+    const diffLength = newValue - oldValue;
+    if (+newValue > +oldValue) {
+      beatMatrix.value[track] = curTrack.concat(new Array(diffLength).fill(false));
+    }
+    beatMatrix.value[track].splice(beats.value);
+  }
+}
+
+watch(beats, debounce((newValue, oldValue) => changeBeatsQty(newValue, oldValue), 500));
 
 </script>
 <style scoped lang="scss">

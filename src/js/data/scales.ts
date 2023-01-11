@@ -1,4 +1,4 @@
-const scales: scale[] = [
+export const scales: scaleType[] = [
   {
     value: 'major',
     name: 'Major',
@@ -25,8 +25,7 @@ const scales: scale[] = [
   },
 ];
 
-type scale = {
+export type scaleType = {
   value: string,
   name: string,
 }
-export default scales;
